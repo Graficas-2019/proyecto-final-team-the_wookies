@@ -48,6 +48,25 @@ nextRock = 1500;
 var enemies = [];
 var obstacles = [];
 var shots = [];
+
+///////////////////////////////////////////explosion
+//////////////settings/////////
+var movementSpeed = 80;
+var totalObjects = 1000;
+var objectSize = 10;
+var sizeRandomness = 4000;
+var colors = [0xFF0FFF, 0xCCFF00, 0xFF000F, 0x996600, 0xFFFFFF];
+/////////////////////////////////
+var dirs = [];
+var parts = [];
+var scene = null;
+var camera = null;
+var container = null;
+var renderer = null;
+var material = null;
+var particles = null;
+////////////////////////////////////////////explosion
+
 function createScene(canvas) {
     
     // Create the Three.js renderer and attach it to our canvas
@@ -162,6 +181,7 @@ function animate() {
         generateGame(deltat, now);
 
         KF.update();
+        
     }
 }
 
@@ -217,6 +237,13 @@ function endGame(message){
 }
 
 function generateGame(deltat, now){
+
+
+    var pCount = parts.length;
+    while(pCount--) 
+    {
+      parts[pCount].update();
+    }
 
     var timeRocks = now - currRockTime;
     var timeTrees = now - currTreeTime;
@@ -309,6 +336,11 @@ function generateGame(deltat, now){
 
                             if(enemies[i].type == "spaceship"){
                                 updateLife(-50);
+                                var position = new THREE.Vector3();
+                                position.getPositionFromMatrix( enemies[i].matrixWorld );
+                                //console.log(position);
+                                parts.push(new ExplodeAnimation(position.x,position.y,position.z));
+
                                 //console.log("Nave -50");
                                 spawn--;
                             }
@@ -346,6 +378,7 @@ function generateGame(deltat, now){
 
                             if(obstacles[i].type == "tree"){
                                 updateLife(-70);
+                                
                                 //console.log("Árbol -70");
                                 spawn--;
                             }
@@ -405,7 +438,11 @@ function generateGame(deltat, now){
 	                                if(enemies[k].type == "spaceship"){
 	                                    updateScore(1000);
 	                                    scene.remove(enemies[k]);
-	                                    console.log("Nave +1000");
+                                        console.log("Nave +1000");
+                                        var position = new THREE.Vector3();
+                                        position.getPositionFromMatrix( enemies[k].matrixWorld );
+                                
+                                        parts.push(new ExplodeAnimation(position.x,position.y,position.z));
 	                                    spawn--;
 	                                }
 
@@ -666,4 +703,51 @@ function updateLife(n) {
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
+}
+
+
+//explosiones
+function ExplodeAnimation(x,y,z)
+{
+  var geometry = new THREE.Geometry();
+  
+  for (i = 0; i < totalObjects; i ++) 
+  { 
+    var vertex = new THREE.Vector3();
+    vertex.x = x;
+    vertex.y = y;
+    vertex.z = z;
+  
+    geometry.vertices.push( vertex );
+    dirs.push({x:(Math.random() * movementSpeed)-(movementSpeed/2),y:(Math.random() * movementSpeed)-(movementSpeed/2),z:(Math.random() * movementSpeed)-(movementSpeed/2)});
+  }
+
+  material = new THREE.PointsMaterial( { size: objectSize,  color: colors[Math.round(Math.random() * colors.length)] });
+  particles = new THREE.Points( geometry, material );
+
+  this.object = particles;
+  this.status = true;
+  
+  this.xDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+  this.yDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+  this.zDir = (Math.random() * movementSpeed)-(movementSpeed/2);
+  
+  scene.add( this.object  ); 
+  
+  this.update = function()
+  {
+    if (this.status == true)
+    {
+      var pCount = totalObjects;
+      while(pCount--) 
+      {
+        var particle =  this.object.geometry.vertices[pCount]
+        particle.y += dirs[pCount].y;
+        particle.x += dirs[pCount].x;
+        particle.z += dirs[pCount].z;
+      }
+      this.object.geometry.verticesNeedUpdate = true;
+    }
+  }
+  
 }

@@ -1,11 +1,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Three.js Not Star Fox</title>
+<title>StarFox</title>
 
 <link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
 <link rel="stylesheet" href="../libs/colorpicker/css/colorpicker.css" />
 <link rel="stylesheet" href="./css/main.css" />
+<link rel="stylesheet" href="./css/style.css" />
 
 <script src="../libs/jquery-3.3.1/jquery-3.3.1.js"></script>
 <script src="../libs/jquery-ui/jquery-ui.js"></script>
@@ -45,6 +46,56 @@
   }
 </script>
 
+<script type="text/javascript">
+  function showCredits() {
+    var credits = document.getElementById("credits");
+    var menu = document.getElementById("menu");
+
+    if (credits.style.display === "none") {
+      credits.style.display = "block";
+      menu.style.display = "none";
+    } 
+    else {
+      credits.style.display = "none";
+      menu.style.display = "block";
+    }
+  }
+
+  function showScores() {
+    var scores = document.getElementById("high-scores");
+    var menu = document.getElementById("menu");
+
+    if (scores.style.display === "none") {
+      scores.style.display = "block";
+      menu.style.display = "none";
+      high_scores = document.getElementById("ola");
+      HighScores();
+    } 
+    else {
+      scores.style.display = "none";
+      menu.style.display = "block";
+    }
+  }
+
+   function backtoMenu() {
+    var credits = document.getElementById("credits");
+    var scores = document.getElementById("high-scores");
+    var menu = document.getElementById("menu");
+
+    if (menu.style.display === "none") {
+      menu.style.display = "block";
+
+      scores.style.display = "none";
+      credits.style.display = "none";
+    } 
+    else {
+      menu.style.display = "none";
+      scores.style.display = "block";
+      credits.style.display = "block";
+    }
+  }
+</script>
+
 
 <script type="text/javascript">
 	$(document).ready(
@@ -71,7 +122,10 @@
 <body>
 
 <div id="container">
+    <!-- Canvas -->
     <canvas id="webglcanvas"></canvas>
+
+    <!-- Prompt -->
     <div id="prompt">
       <div id="title">Three.js Not Star Fox</div>
       <div id="timer">Timer: 60</div>
@@ -79,11 +133,66 @@
       <div id="life">3000</div>
       <div id="high-score">High Score: 0</div>
     </div>
-    <form>
-      <input id="btn-start" type="button" value="Start Game"> 
-    </form>
-    <div id="overlay"></div>
+
+    <!-- Game Menu -->
+    <div id="game-menu">
+
+      <!-- Menu -->
+      <div id="menu">
+        <img src="./images/logo.png" alt="StarFox" class="img-center">
+        <form>
+            <input class="btn-block" id="btn-start" type="button" value="Start Game"> 
+            <input class="btn-block" id="btn-scores" type="button" value="High Scores" onclick="showScores()">
+            <input class="btn-block" id="btn-credits" type="button" value="Credits" onclick="showCredits()">
+        </form>
+      </div>
+      
+      <!-- High Scores -->
+      <div id="high-scores" style="display: none;">
+        <img src="./images/logo.png" alt="StarFox" class="img-center">
+        <div class="info">
+          <h1>HIGH SCORES</h1>
+          <hr>
+          <div class="row">
+            <div class="col-6" id="ranking">
+              <h2>POSITION</h2>
+              <p>1</p>
+              <p>2</p>
+              <p>3</p>
+              <p>4</p>
+              <p>5</p>
+            </div>
+            <div class="col-6" id="ola">
+              <h2>SCORE</h2>
+              <p>0000</p>
+              <p>0000</p>
+              <p>0000</p>
+              <p>0000</p>
+              <p>0000</p>
+            </div>
+          </div>
+          <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
+        </div>
+
+      </div>
+      
+      <!-- Credits -->
+      <div id="credits" style="display: none;">
+        <img src="./images/logo.png" alt="StarFox" class="img-center">
+        <div class="info">
+          <h1>CREDITS</h1>
+          <hr>
+          <h2>TEAM MEMBERS&emsp;ID</h2>
+          <p>Daniela Flores Javier   &emsp;   &emsp;   A01023226</p>
+          <p>Juan Pablo Güitrón Leal&emsp;&emsp;A01019936</p>
+        </div>
+          <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
+      </div>
+
+    </div>
+
 </div>
+
 </body>
 
 </html>

@@ -8,6 +8,9 @@ var life = score = highScore = spawn = nEnemies = 0;
 var clock = null;
 var currentTime = Date.now();
 var high_scores = null;
+var deltat = null;
+var scorePerSecondTime = null;
+var scorePerSecond = 100; 
 
 //luces
 var directionalLight = spotLight = ambientLight = null;
@@ -18,6 +21,8 @@ var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
 //objectos
 var arwing = laser = tree = spaceship = rock = null;
+var arwingSize = null;
+
 var type = ["tree", "arwing", "laser", "spaceship", "rock"];
 var index = 0;
 
@@ -45,6 +50,53 @@ var colors = [0xFF0FFF, 0xCCFF00, 0xFF000F, 0x996600, 0xFFFFFF];
 var dirs = [];
 var parts = [];
 var scene = container = material = particles = null;
+
+//velocidad objetos
+var arwingMovementSpeed = 0.1;
+var treeMovementSpeed = 0.075;
+var rockMovementSpeed = 0.050;
+var spaceshipMovementSpeed = 0.095;
+
+//movimiento
+var xRClicked = false;
+var xRMove = 0;
+var xLClicked = false;
+var xLMove = 0;
+
+var yRClicked = false;
+var yRMove = 0;
+var yLClicked = false;
+var yLMove = 0;
+
+
+//powerups
+var timeLeftPrintRate = 1000; //se imprime el tiempo restante cada segundo
+
+var speedUpStatus = false;
+var speedUpStartTime = null;
+var speedUpDuration = 5000; //en milisegundos
+var speedUpEnemiesSpeedMultiplier = 4;
+var speedUpScoreBoost = 4;
+var speedUpLastTimePrinted = null;
+var speedUpSecondsLeft = null;
+var scoreLock = 0;
+
+var immunityStatus = false;
+var immunityTimesInitiated = 0;
+var immunityDuration = 5000;
+var immunityStartTime = null;
+var immunityLastTimePrinted = null;
+var immunitySecondsLeft = null;
+
+var lifeBoost = 500;
+var lifeLimit = 3000;
+
+var speedMovementBoost = 0.005;
+var speedMovementBoostSpwanSpeedBoost = true;
+var speedMovementBoostSpeedLimit = 0.15;
+
+//sonidos
+sounds = {}
 
 function createScene(canvas) 
 {
@@ -137,6 +189,13 @@ function createScene(canvas)
 
     window.addEventListener( 'resize', onWindowResize);
     document.addEventListener('keydown', onKeyDown, false);
+    document.addEventListener('keyup', onKeyUp);
+
+
+    //load the audio
+    loadAudio("mario","./music/mario.mp3");
+    loadAudio("dead","./music/sound.mp3");
+    
 }
 
 function onWindowResize() 
@@ -160,7 +219,7 @@ function animate()
     if ( game )
     {
         var now = Date.now();
-        var deltat = clock.getDelta() * 1000;
+        deltat = clock.getDelta() * 1000;
         currentTime = now;
 
         generateGame(deltat, now);

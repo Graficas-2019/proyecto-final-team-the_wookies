@@ -50,6 +50,7 @@ function loadObj() {
                 		arwing.rotation.y = Math.PI;
 
                         arwing.box = new THREE.Box3().setFromObject(arwing);
+                        arwingSize = arwing.box.getSize();
 
                 		group.add(object);
                     }
@@ -153,83 +154,4 @@ function cloneLaser(position) {
     shots.push(clone);
     scene.add(clone);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-//Scene variables
-var renderer = scene = camera = root = group = null;
-
-
-//game variables
-var game = false;
-var duration = 60;
-var life = score = highscore = spawn = nEnemies = 0;
-var clock = null;
-var currentTime = Date.now();
-var high_scores = null;
-
-//luces
-var directionalLight = spotLight = ambientLight = null;
-var mapUrl = "./images/grass.jpg";
-
-//sombras
-var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
-
-//objectos
-var arwing = laser = tree = spaceship = rock = null;
-var type = ["tree", "arwing", "laser", "spaceship", "rock"];
-var index = 0;
-
-var grass = grassAnimator = null;
-var animateGrass = true;
-
-var objLoader = mtlLoader = null;
-var currTreeTime = currSpaceShipTime = currRockTime = 0;
-
-var nextSpaceship = 1500,
-nextTree = 1500,
-nextRock = 1500;
-
-var enemies = obstacles = shots = [];
-
-//explosion
-var movementSpeed = 80;
-var totalObjects = 1000;
-var objectSize = 10;
-var sizeRandomness = 4000;
-var colors = [0xFF0FFF, 0xCCFF00, 0xFF000F, 0x996600, 0xFFFFFF];
-
-var dirs = parts = [];
-var scene = container = material = particles = null;*/
-
 

@@ -1,11 +1,14 @@
 function startGame() 
 {
-    
+    //play audioad
+    playAudio("mario",true);
+
     score = 0;
     life = 3000;
     spawn = 0;
     id = 0;
     nEnemies = 15;
+    scorePerSecondTime = Date.now();
 
     if(enemies.length > 0){
         for(var i = 0; i < enemies.length; i++){
@@ -64,6 +67,20 @@ function generateGame(deltat, now){
       parts[pCount].update();
     }
 
+    //movement function
+    move();
+
+    //stop powerups
+    deActivatePowerUps()
+
+    //distance update score
+    if (now - scorePerSecondTime>1000)
+    {
+        updateScore(scorePerSecond);
+        scorePerSecondTime = Date.now();
+    }
+    
+
     var timeRocks = now - currRockTime;
     var timeTrees = now - currTreeTime;
     var timeSpaceships = now - currSpaceShipTime;
@@ -74,7 +91,8 @@ function generateGame(deltat, now){
 
             if (life <= 0){
                 seconds = 0;
-                endGame("¡GAME OVER! :(");                
+                endGame("¡GAME OVER! :(");      
+                playAudio("dead",false);          
             }
 
         }
@@ -120,11 +138,11 @@ function generateGame(deltat, now){
             for(var i = 0; i < enemies.length; i++){
 
             	if (enemies[i].type == "spaceship"){
-            		enemies[i].position.z += 0.095 * deltat;
+            		enemies[i].position.z += spaceshipMovementSpeed * deltat;
             	}
 
             	if (enemies[i].type == "rock"){
-            		enemies[i].position.z += 0.050 * deltat;
+            		enemies[i].position.z += rockMovementSpeed * deltat;
             		enemies[i].rotation.x += 0.010 * deltat;
             	}
             	
@@ -174,7 +192,7 @@ function generateGame(deltat, now){
         	for(var i = 0; i < obstacles.length; i++){
 
         		if (obstacles[i].type == "tree"){
-            		obstacles[i].position.z += 0.075 * deltat;
+            		obstacles[i].position.z += treeMovementSpeed * deltat;
             	}
 
             	if (obstacles[i].alive == 1){
@@ -310,6 +328,10 @@ function updateTimer(seconds)
 
 function updateScore(n) 
 {
+    if(scoreLock != 0 && n < 0)
+    {
+        n = 0;
+    }
     score = score + (n);
     document.getElementById("score").innerHTML = "Score: " + score;
 }
@@ -324,8 +346,12 @@ function updateHighScore()
 
 function updateLife(n) 
 {
-    life = life + (n);
-    document.getElementById("life").innerHTML = life;
+    if (immunityTimesInitiated == 0)
+    {
+        life = life + (n);
+        document.getElementById("life").innerHTML = life;
+    }
+
 }
 
 function getRandomArbitrary(min, max) 

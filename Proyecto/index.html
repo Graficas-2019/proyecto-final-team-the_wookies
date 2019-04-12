@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>StarFox</title>
+<title>StarFox | The Game</title>
 
 <link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
 <link rel="stylesheet" href="../libs/colorpicker/css/colorpicker.css" />
@@ -75,7 +75,7 @@
     if (scores.style.display === "none") {
       scores.style.display = "block";
       menu.style.display = "none";
-      high_scores = document.getElementById("ola");
+      high_scores = document.getElementById("scores");
       HighScores();
     } 
     else {
@@ -133,12 +133,14 @@
     <canvas id="webglcanvas"></canvas>
 
     <!-- Prompt -->
-    <div id="prompt">
-      <div id="title">Three.js Not Star Fox</div>
-      <div id="timer">Timer: 60</div>
-      <div id="score">Score: 0</div>
-      <div id="life">3000</div>
-      <div id="high-score">High Score: 0</div>
+    <div class="row" id="prompt">
+      <div class="col-3" id="score">Score: 0</div>
+      <div class="col-3" id="timer">Timer: 60</div>
+      <div class="col-3" id="high-score">High Score: 0</div>
+      <div id="progress-bar">
+        <div id="life">Life</div>
+        <div id="life-score">100%</div>
+      </div>
     </div>
 
     <!-- Game Menu -->
@@ -169,7 +171,7 @@
               <p>4</p>
               <p>5</p>
             </div>
-            <div class="col-6" id="ola">
+            <div class="col-6" id="scores">
               <h2>SCORE</h2>
               <p>0000</p>
               <p>0000</p>
@@ -190,7 +192,7 @@
           <h1>CREDITS</h1>
           <hr>
           <h2>TEAM MEMBERS&emsp;ID</h2>
-          <p>Daniela Flores Javier   &emsp;   &emsp;   A01023226</p>
+          <p>Daniela Flores Javier&emsp;&emsp;&emsp;&emsp;A01023226</p>
           <p>Juan Pablo Güitrón Leal&emsp;&emsp;A01019936</p>
         </div>
           <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">

@@ -89,7 +89,11 @@ function lifeBoostStart()
     {
         life = lifeLimit;
     }
-    document.getElementById("life").innerHTML = life;
+
+    percentage_life = Math.floor((life * 100) / 3000);
+    document.getElementById("life-score").style.width = percentage_life + '%';
+    document.getElementById("life-score").innerHTML = percentage_life + '%';
+    //document.getElementById("life").innerHTML = life;
 }
 
 function speedMovementBoostStart()

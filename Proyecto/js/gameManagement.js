@@ -5,6 +5,7 @@ function startGame()
 
     score = 0;
     life = 3000;
+    percentage_life = 100;
     spawn = 0;
     id = 0;
     nEnemies = 15;
@@ -35,13 +36,16 @@ function startGame()
     document.getElementById("btn-start").hidden = true;
     document.getElementById("score").innerHTML = "Score: " + score;
     document.getElementById("timer").innerHTML = 60;
-    document.getElementById("life").innerHTML = life;
+    //document.getElementById("life").innerHTML = life;
+    document.getElementById("life-score").style.width = percentage_life + '%';
+    document.getElementById("life-score").innerHTML = percentage_life + '%';
+    document.getElementById("life-score").style.backgroundColor = '#4caf50';
     document.getElementById("game-menu").style.display = 'none';
     document.getElementById("game-menu").hidden = true;
 
     clock = new THREE.Clock();
     game = true;
-    high_scores = document.getElementById("ola");
+    high_scores = document.getElementById("scores");
     //console.log(high_scores);
     HighScores();
 }
@@ -349,7 +353,23 @@ function updateLife(n)
     if (immunityTimesInitiated == 0)
     {
         life = life + (n);
-        document.getElementById("life").innerHTML = life;
+        //document.getElementById("life").innerHTML = life;
+
+        percentage_life = Math.floor((life * 100) / 3000);
+        document.getElementById("life-score").style.width = percentage_life + '%';
+        document.getElementById("life-score").innerHTML = percentage_life + '%';
+        if (percentage_life > 70){
+            document.getElementById("life-score").style.backgroundColor = '#4caf50';
+        }
+
+        if (percentage_life < 70){
+            document.getElementById("life-score").style.backgroundColor = '#f1c40f';
+        }
+
+        if (percentage_life < 30){
+            document.getElementById("life-score").style.backgroundColor = '#e74c3c';
+        }
+         
     }
 
 }

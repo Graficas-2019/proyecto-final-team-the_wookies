@@ -98,6 +98,8 @@ var speedMovementBoostSpeedLimit = 0.15;
 //sonidos
 sounds = {}
 
+
+var percentage_life = 0;
 function createScene(canvas) 
 {
     

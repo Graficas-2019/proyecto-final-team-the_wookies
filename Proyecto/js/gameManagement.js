@@ -32,6 +32,9 @@ function startGame()
     enemies = [];
     obstacles = [];
     shots = [];
+    parts = [];
+    explotionTimeRefreshRate = Date.now();
+
 
     document.getElementById("btn-start").hidden = true;
     document.getElementById("score").innerHTML = "Score: " + score;
@@ -48,6 +51,7 @@ function startGame()
     high_scores = document.getElementById("scores");
     //console.log(high_scores);
     HighScores();
+    
 }
 
 function endGame(message){
@@ -66,10 +70,26 @@ function generateGame(deltat, now){
 
 
     var pCount = parts.length;
-    while(pCount--) 
+
+    if (now-explotionTimeRefreshRate > explotionRefreshRate)
     {
-      parts[pCount].update();
+        while(pCount--) 
+        {
+    
+            if (now - parts[pCount].createdAt  < lifetime_explotion && parts[pCount].exist)
+            {
+    
+                parts[pCount].update();
+            }
+            else if (parts[pCount].exist)
+            {
+                parts[pCount].delete();
+                parts[pCount].exist = false;
+            }
+        }
+        explotionTimeRefreshRate = Date.now();
     }
+
 
     //movement function
     move();

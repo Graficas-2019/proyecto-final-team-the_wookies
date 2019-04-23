@@ -47,8 +47,9 @@ function onKeyUp(event)
 
     if(event.keyCode == 16) 
     {
+        speedBoostStart();
         //speedBoostStart();
-        lifeBoostStart();
+        //lifeBoostStart();
     }
 }
 

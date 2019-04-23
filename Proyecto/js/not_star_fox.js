@@ -41,10 +41,15 @@ var enemies = [];
 var obstacles = [];
 var shots = [];
 
-var movementSpeed = 80;
-var totalObjects = 1000;
-var objectSize = 10;
-var sizeRandomness = 4000;
+
+var movementSpeed = 3;
+var totalObjects = 40;
+var objectSize = 3;
+var sizeRandomness = 10;
+var explotionRefreshRate = 20;
+var lifetime_explotion = 200;
+
+var explotionTimeRefreshRate = 0;
 var colors = [0xFF0FFF, 0xCCFF00, 0xFF000F, 0x996600, 0xFFFFFF];
 
 var dirs = [];

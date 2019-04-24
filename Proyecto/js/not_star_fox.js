@@ -56,6 +56,8 @@ var dirs = [];
 var parts = [];
 var scene = container = material = particles = null;
 
+
+
 //velocidad objetos
 var arwingMovementSpeed = 0.1;
 var treeMovementSpeed = 0.075;

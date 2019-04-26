@@ -88,6 +88,58 @@ function loadObj() {
                 		rock.rotation.y = Math.PI / 180 * 90;
                     }
 
+
+                    //Powerup - Speed
+                    if (index == 5){
+                        speed = object;
+                        speed.scale.set(1.2, 1.2, 1.2);
+                        
+                        speed.position.x = 0;
+                        speed.position.y = 4;
+                        speed.position.z = 0;
+
+                        speed.rotation.x = Math.PI / 360 * 90;
+                        speed.rotation.y = Math.PI;
+
+                        //group.add(object);
+                    }
+
+                    //Powerup - life
+                    if (index == 6){
+                        life = object;
+                        life.scale.set(0.12, 0.12, 0.12);
+
+                        life.position.x = 0;
+                        life.position.y = -3;
+                        life.position.z = 0;
+
+                        //group.add(object);
+                    }
+
+                    //Powerup - immunity
+                    if (index == 7){
+                        immunity = object;
+                        immunity.scale.set(12, 12, 12);
+                        
+                        immunity.position.x = 0;
+                        immunity.position.y = 2;
+                        immunity.position.z = 0;
+
+                        //group.add(object);
+                    }
+
+                    //Powerup - rocket
+                    if (index == 8){
+                        rocket = object;
+                        rocket.scale.set(10, 10, 10);
+                        
+                        rocket.position.x = 0;
+                        rocket.position.y = 2;
+                        rocket.position.z = 0;
+
+                        //group.add(object);
+                    }
+
                 	index ++;
                 	loadObj();
                 },

@@ -101,7 +101,7 @@ function loadObj() {
                         speed.rotation.x = Math.PI / 360 * 90;
                         speed.rotation.y = Math.PI;
 
-                        group.add(object);
+                        //group.add(object);
                     }
 
                     //Powerup - life
@@ -113,7 +113,7 @@ function loadObj() {
                         life.position.y = -3;
                         life.position.z = 0;
 
-                        group.add(object);
+                        //group.add(object);
                     }
 
                     //Powerup - immunity
@@ -125,7 +125,7 @@ function loadObj() {
                         immunity.position.y = 2;
                         immunity.position.z = 0;
 
-                        group.add(object);
+                        //group.add(object);
                     }
 
                     //Powerup - rocket
@@ -137,7 +137,7 @@ function loadObj() {
                         rocket.position.y = 2;
                         rocket.position.z = 0;
 
-                        group.add(object);
+                        //group.add(object);
                     }
 
                 	index ++;

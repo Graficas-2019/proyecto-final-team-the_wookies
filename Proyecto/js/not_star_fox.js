@@ -23,7 +23,7 @@ var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 var arwing = laser = tree = spaceship = rock = null;
 var arwingSize = null;
 
-var type = ["tree", "arwing", "laser", "spaceship", "rock"];
+var type = ["tree", "arwing", "laser", "spaceship", "rock", "speed", "life", "immunity", "rocket"];
 var index = 0;
 
 

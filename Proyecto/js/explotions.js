@@ -2,7 +2,7 @@ function ExplodeAnimation(x,y,z)
 {
   var geometry = new THREE.Geometry();
   var geometry2 = new THREE.Geometry();
-  
+  var dirs = [];
   for (i = 0; i < totalObjects; i ++)  
   { 
     var vertex = new THREE.Vector3();
@@ -13,7 +13,6 @@ function ExplodeAnimation(x,y,z)
     geometry.vertices.push( vertex );
     dirs.push({x:(Math.random() * movementSpeed)-(movementSpeed/2),y:(Math.random() * movementSpeed)-(movementSpeed/2),z:(Math.random() * movementSpeed)-(movementSpeed/2)});
   }
-
   for (i = 0; i < totalObjects; i ++)  
   { 
     var vertex = new THREE.Vector3();
@@ -22,11 +21,12 @@ function ExplodeAnimation(x,y,z)
     vertex.z = z;
 
     geometry2.vertices.push( vertex );
-    dirs.push({x:(Math.random() * movementSpeed)-(movementSpeed/2),y:(Math.random() * movementSpeed)-(movementSpeed/2),z:(Math.random() * movementSpeed)-(movementSpeed/2)});
+    dirs.push({x:(Math.random() * movementSpeed2)-(movementSpeed2/2),y:(Math.random() * movementSpeed2)-(movementSpeed2/2),z:(Math.random() * movementSpeed2)-(movementSpeed2/2)});
   }
 
   var texture_explotion1 = new THREE.TextureLoader().load( './images/exp1.png' );
   var texture_explotion2 = new THREE.TextureLoader().load( './images/exp2.png' );
+  
   var material = new THREE.MeshBasicMaterial( { map: texture_explotion1 } );
   var material2 = new THREE.MeshBasicMaterial( { map: texture_explotion2 } );
 
@@ -57,12 +57,18 @@ function ExplodeAnimation(x,y,z)
       var pCount = totalObjects;
       while(pCount--) 
       {
-        var particle =  this.object.geometry.vertices[pCount]
+        var particle =  this.object.geometry.vertices[pCount];
         particle.y += dirs[pCount].y;
         particle.x += dirs[pCount].x;
         particle.z += dirs[pCount].z;
+
+        var particle =  this.object2.geometry.vertices[pCount];
+        particle.y += dirs[pCount+totalObjects].y;
+        particle.x += dirs[pCount+totalObjects].x;
+        particle.z += dirs[pCount+totalObjects].z;
       }
       this.object.geometry.verticesNeedUpdate = true;
+      this.object2.geometry.verticesNeedUpdate = true;
     }
   }
   

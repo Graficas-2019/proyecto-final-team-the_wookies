@@ -43,11 +43,12 @@ var shots = [];
 
 
 var movementSpeed = 3;
-var totalObjects = 40;
+var movementSpeed2 = 1;
+var totalObjects = 200;
 var objectSize = 3;
 var sizeRandomness = 10;
 var explotionRefreshRate = 20;
-var lifetime_explotion = 200;
+var lifetime_explotion = 400;
 
 var explotionTimeRefreshRate = 0;
 var colors = [0xFF0FFF, 0xCCFF00, 0xFF000F, 0x996600, 0xFFFFFF];

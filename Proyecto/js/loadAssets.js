@@ -195,6 +195,26 @@ function cloneObj(type) {
     scene.add(clone);
 }
 
+function clonePowerup(type) {
+    var x = getRandomArbitrary(30, -30);
+    var z = getRandomArbitrary(-250, -260);
+    
+    if (type == "speedBoost"){
+        var y = getRandomArbitrary(8, 15);
+
+        var clone = rocket.clone();
+        clone.position.set(x, y, z);
+    }
+
+    clone.box = new THREE.Box3();
+    clone.score = 1;
+    clone.alive = 1;
+    clone.type = type;
+
+    powerups.push(clone);
+    scene.add(clone);
+}
+
 
 function cloneLaser(position) {
 	var clone = laser.clone();

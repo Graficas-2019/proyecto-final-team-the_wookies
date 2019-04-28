@@ -9,6 +9,7 @@ function startGame()
     spawn = 0;
     id = 0;
     nEnemies = 15;
+    nPowerups = 1;
     scorePerSecondTime = Date.now();
 
     if(enemies.length > 0){
@@ -108,6 +109,7 @@ function generateGame(deltat, now){
     var timeRocks = now - currRockTime;
     var timeTrees = now - currTreeTime;
     var timeSpaceships = now - currSpaceShipTime;
+    var timeSpeedBoost = now - currSpeedBoostTime;
     
     var seconds = Math.floor(duration - clock.elapsedTime);
         if (seconds > 0){
@@ -156,6 +158,61 @@ function generateGame(deltat, now){
 
 	        }
 		}
+
+
+        if (spawn2 < nPowerups) {
+            if(timeSpeedBoost > nextSpeedBoost) {
+                currSpeedBoostTime = now;
+                spawn2++;
+                nextSpeedBoost = 200;
+                
+                clonePowerup("speedBoost");
+
+            }
+        }
+
+
+        if ( powerups.length > 0 ) {
+            
+            for(var i = 0; i < powerups.length; i++){
+
+                if (powerups[i].type == "speedBoost"){
+                    powerups[i].position.z += speedBoostMovementSpeed * deltat;
+                    powerups[i].rotation.y += 0.002 * deltat;
+                }
+                
+                if(powerups[i].position.z > 100 ) {  
+                    if(powerups[i].alive == 1){
+                        powerups[i].alive = 0;
+                        spawn2--;
+                        scene.remove(powerups[i]);
+                        powerups.splice(i, 1);
+                    }
+                    /*
+                    if(powerups[i].alive == 0){
+                        scene.remove(powerups[i]);
+                        powerups.splice(i, 1);
+                    }
+                    */
+                } 
+                else{
+                    arwing.box.setFromObject(arwing);
+                    if(arwing.box.intersectsBox(powerups[i].box.setFromObject(powerups[i]))){
+                        if (powerups[i].alive == 1){
+                            if(powerups[i].type == "speedBoost"){
+                                speedBoostStart();
+                                spawn2--;
+                            }
+                            powerups[i].alive = 0;
+                            scene.remove(powerups[i]);
+                            powerups.splice(i, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         if ( enemies.length > 0 ) {
         	

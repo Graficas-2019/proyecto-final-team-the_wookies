@@ -4,7 +4,7 @@ var renderer = scene = camera = root = group = null;
 //game variables
 var game = false;
 var duration = 60;
-var life = score = highScore = spawn = nEnemies = 0;
+var life = score = highScore = spawn = spawn2 = nEnemies = nPowerups = 0;
 var clock = null;
 var currentTime = Date.now();
 var high_scores = null;
@@ -20,7 +20,7 @@ var mapUrl = "./images/grass.jpg";
 var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
 //objectos
-var arwing = laser = tree = spaceship = rock = null;
+var arwing = laser = tree = spaceship = rock = rocket = null;
 var arwingSize = null;
 
 var type = ["tree", "arwing", "laser", "spaceship", "rock", "speed", "life", "immunity", "rocket"];
@@ -32,14 +32,17 @@ var animateGrass = true;
 
 var objLoader = mtlLoader = null;
 var currTreeTime = currSpaceShipTime = currRockTime = 0;
+var currSpeedBoostTime = 0;
 
 var nextSpaceship = 1500,
 nextTree = 1500,
-nextRock = 1500;
+nextRock = 1500,
+nextSpeedBoost = 1500;
 
 var enemies = [];
 var obstacles = [];
 var shots = [];
+var powerups = [];
 
 
 var movementSpeed = 3;
@@ -64,6 +67,7 @@ var arwingMovementSpeed = 0.1;
 var treeMovementSpeed = 0.075;
 var rockMovementSpeed = 0.050;
 var spaceshipMovementSpeed = 0.095;
+var speedBoostMovementSpeed = 0.095;
 
 //movimiento
 var xRClicked = false;

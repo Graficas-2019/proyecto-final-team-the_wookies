@@ -40,18 +40,12 @@ body {
 	text-align: center;
 }
 
-#score {
-	/*img*/
+.score-img{
+    width: 5%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-#timer {
-	/*img*/
-}
-
-#high-score{
-	/*img*/
-}
-
 
 /********************************/
 /********* GAME MENU ***********/

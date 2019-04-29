@@ -34,13 +34,13 @@ var animateGrass = true;
 var objLoader = mtlLoader = null;
 var currTreeTime = currSpaceShipTime = currRockTime = 0;
 
-var currSpeedBoostTime = currImmunityTime = currLifeTime = currSpeedTime = 0;
+var currSpeedUpTime = currImmunityTime = currLifeTime = currSpeedTime = 0;
 
 var nextSpaceship = 1500,
 nextTree = 1500,
 nextRock = 1500;
 
-var nextSpeedBoost = 1500,
+var nextSpeedUp = 1500,
 nextImmunity = 1500,
 nextLife = 1500,
 nextSpeed = 1500;

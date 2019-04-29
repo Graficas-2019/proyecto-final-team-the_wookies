@@ -118,7 +118,7 @@ function generateGame(deltat, now){
     var timeTrees = now - currTreeTime;
     var timeSpaceships = now - currSpaceShipTime;
 
-    var timeSpeedBoost = now - currSpeedBoostTime;
+    var timeSpeedUp = now - currSpeedUpTime;
     var timeImmunity = now - currImmunityTime;
     var timeLife = now - currLifeTime;
     var timeSpeed = now - currSpeedTime;
@@ -176,10 +176,10 @@ function generateGame(deltat, now){
         /************************************/
 
         if (spawn2 < nPowerups) {
-            if(timeSpeedBoost > nextSpeedBoost) {
-                currSpeedBoostTime = now;
+            if(timeSpeedUp > nextSpeedUp) {
+                currSpeedUpTime = now;
                 spawn2++;
-                nextSpeedBoost = 200;
+                nextSpeedUp = 200;
                 
                 clonePowerup("speedBoost");
             }

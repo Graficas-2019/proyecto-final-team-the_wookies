@@ -2,6 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>StarFox | The Game</title>
+<link rel="shortcut icon" type="image/png" href="./images/favicon.ico"/>
 
 <link rel="stylesheet" href="../libs/jquery-ui/jquery-ui.css" />
 <link rel="stylesheet" href="../libs/colorpicker/css/colorpicker.css" />
@@ -85,9 +86,18 @@
 
     <!-- Prompt -->
     <div class="row" id="prompt">
-      <div class="col-3" id="score">Score: 0</div>
-      <div class="col-3" id="timer">Timer: 60</div>
-      <div class="col-3" id="high-score">High Score: 0</div>
+      <div class="col-3">
+        <img src="./images/score.png" alt="Score" class="score-img" >
+        <p id="score">Score: 0</p>
+      </div>
+      <div class="col-3">
+        <img src="./images/time.png" alt="Timer" class="score-img">
+        <p id="timer">Timer: 60</p>
+      </div>
+      <div class="col-3">
+        <img src="./images/high-score.png" alt="High-Score" class="score-img">
+        <p id="high-score">High Score: 0</p>
+      </div>
 
       <div class="progress-bar" id="pb-life-pos">
         <div id="title-life">Life</div>

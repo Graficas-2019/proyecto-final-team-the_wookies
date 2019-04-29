@@ -124,12 +124,12 @@ function loadObj() {
 
                     //Powerup - speedboost
                     if (index == 8){
-                        rocket = object;
-                        rocket.scale.set(10, 10, 10);
+                        speedUpPowerup = object;
+                        speedUpPowerup.scale.set(10, 10, 10);
                         
-                        rocket.position.x = 0;
-                        rocket.position.y = 2;
-                        rocket.position.z = 0;
+                        speedUpPowerup.position.x = 0;
+                        speedUpPowerup.position.y = 2;
+                        speedUpPowerup.position.z = 0;
                     }
 
                 	index ++;
@@ -192,7 +192,7 @@ function clonePowerup(type) {
     var y = getRandomArbitrary(8, 15);
     var z = getRandomArbitrary(-250, -260);
     
-    if (type == "speedBoost"){ var clone = rocket.clone(); }
+    if (type == "speedBoost"){ var clone = speedUpPowerup.clone(); }
     if (type == "immunity"){ var clone = immunityPowerup.clone(); }
     if (type == "life"){ var clone = lifeBoostPowerup.clone(); }
     if (type == "speed"){ var clone = speedPowerup.clone(); }

@@ -91,17 +91,15 @@ function loadObj() {
 
                     //Powerup - speed
                     if (index == 5){
-                        speed = object;
-                        speed.scale.set(1.2, 1.2, 1.2);
+                        speedPowerup = object;
+                        speedPowerup.scale.set(1.2, 1.2, 1.2);
                         
-                        speed.position.x = 0;
-                        speed.position.y = 4;
-                        speed.position.z = 0;
+                        speedPowerup.position.x = 0;
+                        speedPowerup.position.y = 4;
+                        speedPowerup.position.z = 0;
 
-                        speed.rotation.x = Math.PI / 360 * 90;
-                        speed.rotation.y = Math.PI;
-
-                        //group.add(object);
+                        speedPowerup.rotation.x = Math.PI / 360 * 90;
+                        speedPowerup.rotation.y = Math.PI;
                     }
 
                     //Powerup - life
@@ -112,8 +110,6 @@ function loadObj() {
                         lifeBoostPowerup.position.x = 0;
                         lifeBoostPowerup.position.y = -3;
                         lifeBoostPowerup.position.z = 0;
-
-                        //group.add(object);
                     }
 
                     //Powerup - immunity
@@ -124,8 +120,6 @@ function loadObj() {
                         immunityPowerup.position.x = 0;
                         immunityPowerup.position.y = 2;
                         immunityPowerup.position.z = 0;
-
-                        //group.add(object);
                     }
 
                     //Powerup - speedboost
@@ -136,8 +130,6 @@ function loadObj() {
                         rocket.position.x = 0;
                         rocket.position.y = 2;
                         rocket.position.z = 0;
-
-                        //group.add(object);
                     }
 
                 	index ++;
@@ -203,6 +195,7 @@ function clonePowerup(type) {
     if (type == "speedBoost"){ var clone = rocket.clone(); }
     if (type == "immunity"){ var clone = immunityPowerup.clone(); }
     if (type == "life"){ var clone = lifeBoostPowerup.clone(); }
+    if (type == "speed"){ var clone = speedPowerup.clone(); }
     
     clone.position.set(x, y, z);
     clone.box = new THREE.Box3();

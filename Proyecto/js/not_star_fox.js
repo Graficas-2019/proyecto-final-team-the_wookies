@@ -21,7 +21,7 @@ var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
 //objectos
 var arwing = laser = tree = spaceship = rock = null;
-var rocket = immunityPowerup = lifeBoostPowerup = null;
+var rocket = immunityPowerup = lifeBoostPowerup = speedPowerup = null;
 var arwingSize = null;
 
 var type = ["tree", "arwing", "laser", "spaceship", "rock", "speed", "life", "immunity", "rocket"];
@@ -34,7 +34,7 @@ var animateGrass = true;
 var objLoader = mtlLoader = null;
 var currTreeTime = currSpaceShipTime = currRockTime = 0;
 
-var currSpeedBoostTime = currImmunityTime = currLifeTime = 0;
+var currSpeedBoostTime = currImmunityTime = currLifeTime = currSpeedTime = 0;
 
 var nextSpaceship = 1500,
 nextTree = 1500,
@@ -42,7 +42,8 @@ nextRock = 1500;
 
 var nextSpeedBoost = 1500,
 nextImmunity = 1500,
-nextLife = 1500;
+nextLife = 1500,
+nextSpeed = 1500;
 
 var enemies = [];
 var obstacles = [];
@@ -76,6 +77,7 @@ var spaceshipMovementSpeed = 0.095;
 var speedBoostMovementSpeed = 0.095;
 var immunityMovementSpeed = 0.095;
 var lifeMovementSpeed = 0.095;
+var speedMovementSpeed = 0.095;
 
 //movimiento
 var xRClicked = false;

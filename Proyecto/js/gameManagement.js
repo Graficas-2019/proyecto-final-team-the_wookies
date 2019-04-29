@@ -10,7 +10,7 @@ function startGame()
     spawn2 = 0;
     id = 0;
     nEnemies = 15;
-    nPowerups = 3;
+    nPowerups = 4;
     scorePerSecondTime = Date.now();
 
     if(powerups.length > 0){
@@ -121,6 +121,7 @@ function generateGame(deltat, now){
     var timeSpeedBoost = now - currSpeedBoostTime;
     var timeImmunity = now - currImmunityTime;
     var timeLife = now - currLifeTime;
+    var timeSpeed = now - currSpeedTime;
 
     var seconds = Math.floor(duration - clock.elapsedTime);
         if (seconds > 0){
@@ -182,9 +183,7 @@ function generateGame(deltat, now){
                 
                 clonePowerup("speedBoost");
             }
-        }
 
-        if (spawn2 < nPowerups) {
             if(timeImmunity > nextImmunity) {
                 currImmunityTime = now;
                 spawn2++;
@@ -192,15 +191,21 @@ function generateGame(deltat, now){
                 
                 clonePowerup("immunity");
             }
-        }
 
-        if (spawn2 < nPowerups) {
             if(timeLife > nextLife) {
                 currLifeTime = now;
                 spawn2++;
                 nextLife = 200;
                 
                 clonePowerup("life");
+            }
+
+            if(timeSpeed > nextSpeed) {
+                currSpeedTime = now;
+                spawn2++;
+                nextSpeed = 200;
+                
+                clonePowerup("speed");
             }
         }
 
@@ -214,16 +219,26 @@ function generateGame(deltat, now){
                     powerups[i].rotation.y += 0.0020 * deltat;
                 }
 
-                if (powerups[i].type == "immunity"){
+                else if (powerups[i].type == "immunity"){
                     powerups[i].position.z += immunityMovementSpeed * deltat;
                     powerups[i].rotation.y += -0.0015 * deltat;
                 }
 
-                if (powerups[i].type == "life"){
+                else if (powerups[i].type == "life"){
+                    powerups[i].position.z += lifeMovementSpeed * deltat;
+                    powerups[i].rotation.y += -0.0015 * deltat;
+                }
+
+                else if (powerups[i].type == "life"){
                     powerups[i].position.z += lifeMovementSpeed * deltat;
                     powerups[i].rotation.y += -0.0015 * deltat;
                 }
                 
+                else if (powerups[i].type == "speed"){
+                    powerups[i].position.z += speedMovementSpeed * deltat;
+                    //powerups[i].position.y += -0.0015 * deltat;
+                }
+
                 if(powerups[i].position.z > 100 ) {  
                     if(powerups[i].alive == 1){
                         powerups[i].alive = 0;
@@ -241,14 +256,20 @@ function generateGame(deltat, now){
                                 spawn2--;
                             }
 
-                            if(powerups[i].type == "immunity"){
+                            else if(powerups[i].type == "immunity"){
                                 immunityStart();
                                 spawn2--;
                             }
 
-                            if(powerups[i].type == "life"){
+                            else if(powerups[i].type == "life"){
                                 lifeBoostStart();
                                 spawn2--;
+                            }
+
+                            else if(powerups[i].type == "speed"){
+                                speedMovementBoostStart();
+                                spawn2--;
+                                //console.log("entre");
                             }
 
                             powerups[i].alive = 0;
@@ -391,14 +412,6 @@ function generateGame(deltat, now){
 	                                    console.log("Roca +500");
 	                                    spawn--;
 	                                }
-
-	                                /*
-	                                if(enemies[k].type == "tree"){
-	                                    updateScore(750);
-	                                    scene.remove(enemies[k]);
-	                                    console.log("Árbol +750");
-	                                    spawn--;
-	                                }*/
 
 	                                if(enemies[k].type == "spaceship"){
 	                                    updateScore(1000);

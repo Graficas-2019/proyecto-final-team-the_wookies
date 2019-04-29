@@ -130,6 +130,8 @@ function loadObj() {
                         speedUpPowerup.position.x = 0;
                         speedUpPowerup.position.y = 2;
                         speedUpPowerup.position.z = 0;
+
+                        document.getElementById("btn-start").classList.remove("disabled");
                     }
 
                 	index ++;
@@ -145,6 +147,7 @@ function loadObj() {
                 }
             );
         }
+
     );
 }
 

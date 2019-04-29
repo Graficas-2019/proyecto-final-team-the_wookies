@@ -76,7 +76,7 @@ function immunityStop()
         immunityStatus = false;
         immunityTimesInitiated -= 1;
         scoreLock = scoreLock - 1;
-        console.log(scoreLock);
+        //console.log(scoreLock);
         immunityLastTimePrinted = null;
     }
 }
@@ -114,14 +114,14 @@ function deActivatePowerUps()
     var now = Date.now();
     if(speedUpStatus)
     {
-        if(now-speedUpStartTime>speedUpDuration)
+        if(now-speedUpStartTime > speedUpDuration)
         {
             speedBoostStop();
             updatePowerupScore("speedboost", 0);            
         }
-        else if(speedUpLastTimePrinted == null || now-speedUpLastTimePrinted>timeLeftPrintRate)
+        else if(speedUpLastTimePrinted == null || now-speedUpLastTimePrinted > timeLeftPrintRate)
         {
-            console.log(speedUpSecondsLeft);
+            //console.log(speedUpSecondsLeft);
             
             var percentage_speedboost = Math.floor((speedUpSecondsLeft * 100) / 5);
             updatePowerupScore("speedboost", percentage_speedboost);
@@ -140,7 +140,7 @@ function deActivatePowerUps()
         }
         else if(immunityLastTimePrinted == null || now-immunityLastTimePrinted>timeLeftPrintRate)
         {
-            console.log(immunitySecondsLeft);
+            //console.log(immunitySecondsLeft);
 
             var percentage_immunity = Math.floor((immunitySecondsLeft * 100) / 5);
             updatePowerupScore("immunity", percentage_immunity);

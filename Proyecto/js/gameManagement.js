@@ -10,7 +10,7 @@ function startGame()
     spawn2 = 0;
     id = 0;
     nEnemies = 15;
-    nPowerups = 2;
+    nPowerups = 3;
     scorePerSecondTime = Date.now();
 
     if(powerups.length > 0){
@@ -120,6 +120,7 @@ function generateGame(deltat, now){
 
     var timeSpeedBoost = now - currSpeedBoostTime;
     var timeImmunity = now - currImmunityTime;
+    var timeLife = now - currLifeTime;
 
     var seconds = Math.floor(duration - clock.elapsedTime);
         if (seconds > 0){
@@ -180,7 +181,6 @@ function generateGame(deltat, now){
                 nextSpeedBoost = 200;
                 
                 clonePowerup("speedBoost");
-
             }
         }
 
@@ -191,7 +191,16 @@ function generateGame(deltat, now){
                 nextImmunity = 200;
                 
                 clonePowerup("immunity");
+            }
+        }
 
+        if (spawn2 < nPowerups) {
+            if(timeLife > nextLife) {
+                currLifeTime = now;
+                spawn2++;
+                nextLife = 200;
+                
+                clonePowerup("life");
             }
         }
 
@@ -207,6 +216,11 @@ function generateGame(deltat, now){
 
                 if (powerups[i].type == "immunity"){
                     powerups[i].position.z += immunityMovementSpeed * deltat;
+                    powerups[i].rotation.y += -0.0015 * deltat;
+                }
+
+                if (powerups[i].type == "life"){
+                    powerups[i].position.z += lifeMovementSpeed * deltat;
                     powerups[i].rotation.y += -0.0015 * deltat;
                 }
                 
@@ -232,6 +246,11 @@ function generateGame(deltat, now){
                                 spawn2--;
                             }
 
+                            if(powerups[i].type == "life"){
+                                lifeBoostStart();
+                                spawn2--;
+                            }
+
                             powerups[i].alive = 0;
                             scene.remove(powerups[i]);
                             powerups.splice(i, 1);
@@ -240,7 +259,6 @@ function generateGame(deltat, now){
                 }
             }
         }
-
 
 
         if ( enemies.length > 0 ) {

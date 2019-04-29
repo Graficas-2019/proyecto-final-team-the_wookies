@@ -185,12 +185,9 @@ body {
 /********* PROGRESS BAR ********/
 /******************************/
 
-#progress-bar {
+.progress-bar {
 	/* Position */
 	position: fixed;
-	width: 30%;
-	bottom: 10px;
-	left: 70px;
 	/* Background */
 	background-color: grey;
 	/* Border */
@@ -200,18 +197,12 @@ body {
 	border-bottom-left-radius: 20px;
 }
 
-#life{
-	position: fixed;
-	bottom: 5px;
-	left: 10px;
-}
-
-#life-score{
+.score{
 	width: 100%;
 	height: 15px;
 	/* Background */
 	background-size: 30px 30px;
-	background-color: #4CAF50;
+	/*background-color: #4CAF50;*/
 	background-image: linear-gradient(
 		-45deg, 
 		rgba(255, 255, 255, .2) 25%, 
@@ -234,6 +225,42 @@ body {
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
 }
+
+
+/********* LIFE ********/
+#pb-life-pos{
+	width: 30%;
+	bottom: 10px;
+	left: 90px;
+}
+#title-life{
+	position: fixed;
+	bottom: 5px;
+	left: 10px;
+}
+
+#life-score{
+	background-color: #4CAF50;
+}
+
+
+/********* SPEED BOOST ********/
+#pb-speedboost-pos{
+	width: 30%;
+	bottom: 35px;
+	left: 90px;
+}
+#title-speedboost{
+	position: fixed;
+	bottom: 35px;
+	left: 10px;
+}
+
+#speedboost-score{
+	width: 0%;
+	background-color: orange;
+}
+
 
 @keyframes move {
   0% { background-position: 0 0; }

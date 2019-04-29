@@ -188,12 +188,6 @@ function generateGame(deltat, now){
                         scene.remove(powerups[i]);
                         powerups.splice(i, 1);
                     }
-                    /*
-                    if(powerups[i].alive == 0){
-                        scene.remove(powerups[i]);
-                        powerups.splice(i, 1);
-                    }
-                    */
                 } 
                 else{
                     arwing.box.setFromObject(arwing);
@@ -431,7 +425,6 @@ function updateLife(n)
     {
         life = life + (n);
         //document.getElementById("life").innerHTML = life;
-
         percentage_life = Math.floor((life * 100) / 3000);
         document.getElementById("life-score").style.width = percentage_life + '%';
         document.getElementById("life-score").innerHTML = percentage_life + '%';

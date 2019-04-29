@@ -207,7 +207,6 @@ function clonePowerup(type) {
     }
 
     clone.box = new THREE.Box3();
-    clone.score = 1;
     clone.alive = 1;
     clone.type = type;
 

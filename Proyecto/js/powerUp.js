@@ -124,7 +124,6 @@ function deActivatePowerUps()
             console.log(speedUpSecondsLeft);
             
             var percentage_speedboost = Math.floor((speedUpSecondsLeft * 100) / 5);
-            
             updatePowerupScore("speedboost", percentage_speedboost);
             
             speedUpSecondsLeft -= 1;
@@ -136,11 +135,16 @@ function deActivatePowerUps()
     {
         if(now-immunityStartTime>immunityDuration)
         {
-            immunityStop()
+            immunityStop();
+            updatePowerupScore("immunity", 0);
         }
         else if(immunityLastTimePrinted == null || now-immunityLastTimePrinted>timeLeftPrintRate)
         {
             console.log(immunitySecondsLeft);
+
+            var percentage_immunity = Math.floor((immunitySecondsLeft * 100) / 5);
+            updatePowerupScore("immunity", percentage_immunity);
+
             immunitySecondsLeft -= 1;
             immunityLastTimePrinted = Date.now();
         }
@@ -150,8 +154,6 @@ function deActivatePowerUps()
 
 function updatePowerupScore(powerup, score)
 {
-    if (powerup == "speedboost")
-    {
-        document.getElementById("speedboost-score").style.width = score + '%';
-    }
+    if (powerup == "speedboost") { document.getElementById("speedboost-score").style.width = score + '%'; }
+    if (powerup == "immunity") { document.getElementById("immunity-score").style.width = score + '%'; }
 }

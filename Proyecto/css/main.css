@@ -246,9 +246,9 @@ body {
 
 /********* SPEED BOOST ********/
 #pb-speedboost-pos{
-	width: 30%;
+	width: 15%;
 	bottom: 35px;
-	left: 90px;
+	left: 100px;
 }
 #title-speedboost{
 	position: fixed;
@@ -258,7 +258,24 @@ body {
 
 #speedboost-score{
 	width: 0%;
-	background-color: orange;
+	background-color: #9c88ff;
+}
+
+/********* IMMUNITY ********/
+#pb-immunity-pos{
+	width: 15%;
+	bottom: 65px;
+	left: 100px;
+}
+#title-immunity{
+	position: fixed;
+	bottom: 65px;
+	left: 10px;
+}
+
+#immunity-score{
+	width: 0%;
+	background-color: #00a8ff;
 }
 
 

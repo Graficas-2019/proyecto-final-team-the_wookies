@@ -197,15 +197,13 @@ function cloneObj(type) {
 
 function clonePowerup(type) {
     var x = getRandomArbitrary(30, -30);
+    var y = getRandomArbitrary(8, 15);
     var z = getRandomArbitrary(-250, -260);
     
-    if (type == "speedBoost"){
-        var y = getRandomArbitrary(8, 15);
-
-        var clone = rocket.clone();
-        clone.position.set(x, y, z);
-    }
-
+    if (type == "speedBoost"){ var clone = rocket.clone(); }
+    if (type == "immunity"){ var clone = immunity.clone(); }
+    
+    clone.position.set(x, y, z);
     clone.box = new THREE.Box3();
     clone.alive = 1;
     clone.type = type;

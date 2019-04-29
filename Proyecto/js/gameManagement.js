@@ -7,10 +7,17 @@ function startGame()
     life = 3000;
     percentage_life = 100;
     spawn = 0;
+    spawn2 = 0;
     id = 0;
     nEnemies = 15;
-    nPowerups = 1;
+    nPowerups = 2;
     scorePerSecondTime = Date.now();
+
+    if(powerups.length > 0){
+        for(var i = 0; i < powerups.length; i++){
+            scene.remove(powerups[i]);
+        }   
+    }
 
     if(enemies.length > 0){
         for(var i = 0; i < enemies.length; i++){
@@ -32,6 +39,7 @@ function startGame()
 
     enemies = [];
     obstacles = [];
+    powerups = [];
     shots = [];
     parts = [];
     explotionTimeRefreshRate = Date.now();
@@ -109,8 +117,10 @@ function generateGame(deltat, now){
     var timeRocks = now - currRockTime;
     var timeTrees = now - currTreeTime;
     var timeSpaceships = now - currSpaceShipTime;
+
     var timeSpeedBoost = now - currSpeedBoostTime;
-    
+    var timeImmunity = now - currImmunityTime;
+
     var seconds = Math.floor(duration - clock.elapsedTime);
         if (seconds > 0){
             updateTimer(seconds);
@@ -159,6 +169,9 @@ function generateGame(deltat, now){
 	        }
 		}
 
+        /**************************************/
+        /************** POWERUPS *************/
+        /************************************/
 
         if (spawn2 < nPowerups) {
             if(timeSpeedBoost > nextSpeedBoost) {
@@ -171,6 +184,17 @@ function generateGame(deltat, now){
             }
         }
 
+        if (spawn2 < nPowerups) {
+            if(timeImmunity > nextImmunity) {
+                currImmunityTime = now;
+                spawn2++;
+                nextImmunity = 200;
+                
+                clonePowerup("immunity");
+
+            }
+        }
+
 
         if ( powerups.length > 0 ) {
             
@@ -178,7 +202,12 @@ function generateGame(deltat, now){
 
                 if (powerups[i].type == "speedBoost"){
                     powerups[i].position.z += speedBoostMovementSpeed * deltat;
-                    powerups[i].rotation.y += 0.002 * deltat;
+                    powerups[i].rotation.y += 0.0020 * deltat;
+                }
+
+                if (powerups[i].type == "immunity"){
+                    powerups[i].position.z += immunityMovementSpeed * deltat;
+                    powerups[i].rotation.y += -0.0015 * deltat;
                 }
                 
                 if(powerups[i].position.z > 100 ) {  
@@ -197,6 +226,12 @@ function generateGame(deltat, now){
                                 speedBoostStart();
                                 spawn2--;
                             }
+
+                            if(powerups[i].type == "immunity"){
+                                immunityStart();
+                                spawn2--;
+                            }
+
                             powerups[i].alive = 0;
                             scene.remove(powerups[i]);
                             powerups.splice(i, 1);

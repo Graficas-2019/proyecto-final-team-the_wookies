@@ -203,9 +203,10 @@ function createScene(canvas)
 	}
 
 	// Add the skybox to our group
-	var skyGeom = new THREE.CubeGeometry( 800, 400, 500 );
+	var skyGeom = new THREE.CubeGeometry( 500, 400, 600 );
 	var skyBox = new THREE.Mesh( skyGeom, arr );
-	skyBox.position.y = 80;
+	skyBox.position.y = 120;
+    skyBox.position.z = -140;
 	root.add( skyBox );
 
     // Now add the group to our scene

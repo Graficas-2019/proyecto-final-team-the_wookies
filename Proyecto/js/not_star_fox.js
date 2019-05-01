@@ -286,7 +286,7 @@ function createScene(canvas)
     // Glow Effect
     var spriteMaterial = new THREE.SpriteMaterial( 
     { 
-        map: new THREE.ImageUtils.loadTexture( 'images/glow.png' ), 
+        map: new THREE.TextureLoader().load( 'images/glow.png' ), 
         color: 0xfff200,
         transparent: true, 
         blending: THREE.AdditiveBlending

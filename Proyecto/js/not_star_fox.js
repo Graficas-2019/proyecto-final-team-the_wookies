@@ -3,7 +3,7 @@ var renderer = scene = camera = root = group = null;
 
 //game variables
 var game = false;
-var duration = 60;
+var duration = 180;
 var life = score = highScore = spawn = spawn2 = nEnemies = nPowerups = 0;
 var clock = null;
 var currentTime = Date.now();
@@ -11,6 +11,8 @@ var high_scores = null;
 var deltat = null;
 var scorePerSecondTime = null;
 var scorePerSecond = 100; 
+var gameDifficulty = 1;
+var gameDifficultyLimit = 3;
 
 //luces
 var directionalLight = spotLight = ambientLight = null;
@@ -27,6 +29,12 @@ var arwingSize = null;
 var type = ["tree", "arwing", "laser", "spaceship", "rock", "speed", "life", "immunity", "rocket"];
 var index = 0;
 
+var levelDifficultySpawnRock = 1;
+var levelDifficultySpawnTree = 2;
+var levelDifficultySpawnSpaceship = 3;
+
+var nextLevel = 20000;
+var lastLevelChanged = 0;
 
 var grass = grassAnimator = null;
 var animateGrass = true;
@@ -36,9 +44,10 @@ var currTreeTime = currSpaceShipTime = currRockTime = 0;
 
 var currSpeedUpTime = currImmunityTime = currLifeTime = currSpeedTime = 0;
 
-var nextSpaceship = 1500,
-nextTree = 1500,
-nextRock = 1500;
+var nextSpaceship = 500,
+nextTree = 500,
+nextRock = 500;
+
 
 var nextSpeedUp = 1500,
 nextImmunity = 1500,
@@ -49,7 +58,8 @@ var enemies = [];
 var obstacles = [];
 var shots = [];
 var powerups = [];
-
+var nextPowerUp = 5000;
+var lastPowerUp = 0; 
 
 var movementSpeed = 3;
 var movementSpeed2 = 1;
@@ -71,7 +81,7 @@ var scene = container = material = particles = null;
 //velocidad objetos
 var arwingMovementSpeed = 0.1;
 var treeMovementSpeed = 0.075;
-var rockMovementSpeed = 0.050;
+var rockMovementSpeed = 0.20;
 var spaceshipMovementSpeed = 0.095;
 
 var speedBoostMovementSpeed = 0.095;
@@ -181,7 +191,7 @@ function createScene(canvas)
     var color = 0xffffff;
 
     // Put in a ground plane to show off the lighting
-    geometry = new THREE.PlaneGeometry(500, 200, 50, 50);
+    geometry = new THREE.PlaneGeometry(500, 500, 50, 50);
     grass = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, map:waterMap, side:THREE.DoubleSide}));
     grass.rotation.x = -Math.PI / 2;
     grass.position.y = -4.02;

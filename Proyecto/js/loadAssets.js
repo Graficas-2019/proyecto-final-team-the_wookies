@@ -170,8 +170,9 @@ function cloneObj(type) {
 	}
 
 	else if (type == "rock"){
-		var clone = rock.clone();
-		clone.position.set(x, -1, z);	
+        var clone = rock.clone();
+        var y = getRandomArbitrary(1, 15);
+		clone.position.set(x, y, z);	
 	}
 
     clone.box = new THREE.Box3();

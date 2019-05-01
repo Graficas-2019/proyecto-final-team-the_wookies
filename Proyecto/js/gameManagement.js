@@ -9,8 +9,8 @@ function startGame()
     spawn = 0;
     spawn2 = 0;
     id = 0;
-    nEnemies = 15;
-    nPowerups = 4;
+    nEnemies = 4;
+    nPowerups = 1;
     scorePerSecondTime = Date.now();
 
     if(powerups.length > 0){
@@ -37,17 +37,18 @@ function startGame()
         }   
     }
 
+    gameDifficulty = 1;
     enemies = [];
     obstacles = [];
     powerups = [];
     shots = [];
     parts = [];
     explotionTimeRefreshRate = Date.now();
-
+    lastLevelChanged = Date.now();
 
     document.getElementById("btn-start").hidden = true;
     document.getElementById("score").innerHTML = "Score: " + score;
-    document.getElementById("timer").innerHTML = 60;
+    document.getElementById("timer").innerHTML = duration;
     //document.getElementById("life").innerHTML = life;
     document.getElementById("life-score").style.width = percentage_life + '%';
     document.getElementById("life-score").innerHTML = percentage_life + '%';
@@ -99,6 +100,16 @@ function generateGame(deltat, now){
         explotionTimeRefreshRate = Date.now();
     }
 
+    //change level difficulty
+    if (now-lastLevelChanged > nextLevel )
+    {
+        lastLevelChanged = Date.now();
+        if ( gameDifficulty <= gameDifficultyLimit )
+        {
+            gameDifficulty += 1;
+        }
+        nEnemies+= 2;
+    }
 
     //movement function
     move();
@@ -139,8 +150,10 @@ function generateGame(deltat, now){
             endGame("¡YOU WON! :)");
         }
         
-        if (spawn < nEnemies) {
-            if(timeRocks > nextRock) {
+        if (spawn < nEnemies && levelDifficultySpawnRock <=gameDifficulty) 
+        {
+            if(timeRocks > nextRock) 
+            {
                 currRockTime = now;
                 spawn++;
                 nextRock = 900;
@@ -150,18 +163,21 @@ function generateGame(deltat, now){
             }
         }
 
-    	if (spawn < nEnemies) {
-        	if(timeTrees > nextTree) {
+        if (spawn < nEnemies && levelDifficultySpawnTree<=gameDifficulty) 
+        {
+            if(timeTrees > nextTree) 
+            {
                 currTreeTime = now;
                 spawn++;
 	            nextTree = 400;
-	            
 	            cloneObj("tree");
         	}
     	}
 
-	    if (spawn < nEnemies) {
-	        if(timeSpaceships > nextSpaceship) {
+        if (spawn < nEnemies && levelDifficultySpawnSpaceship<=gameDifficulty) 
+        {
+            if(timeSpaceships > nextSpaceship) 
+            {
 	            currSpaceShipTime = now;
                 spawn++;
                 nextSpaceship = 200;
@@ -175,35 +191,43 @@ function generateGame(deltat, now){
         /************** POWERUPS *************/
         /************************************/
 
-        if (spawn2 < nPowerups) {
-            if(timeSpeedUp > nextSpeedUp) {
+        if (spawn2 < nPowerups && now-lastPowerUp > nextPowerUp) 
+        {
+            nextPowerUp = (Math.floor(Math.random() *(10*gameDifficulty)))*1000;
+            selectedPU = Math.floor(Math.random() * 4); 
+            lastPowerUp = now;
+            if(selectedPU == 0 && timeSpeedUp > nextSpeedUp) 
+            {
                 currSpeedUpTime = now;
                 spawn2++;
-                nextSpeedUp = 200;
+                nextSpeedUp = 10000;
                 
                 clonePowerup("speedBoost");
             }
 
-            if(timeImmunity > nextImmunity) {
+            if(selectedPU == 1 && timeImmunity > nextImmunity) 
+            {
                 currImmunityTime = now;
                 spawn2++;
-                nextImmunity = 200;
+                nextImmunity = 10000;
                 
                 clonePowerup("immunity");
             }
 
-            if(timeLife > nextLife) {
+            if(selectedPU == 2 && timeLife > nextLife) 
+            {
                 currLifeTime = now;
                 spawn2++;
-                nextLife = 200;
+                nextLife = 10000;
                 
                 clonePowerup("life");
             }
 
-            if(timeSpeed > nextSpeed) {
+            if(selectedPU == 3 && timeSpeed > nextSpeed) 
+            {
                 currSpeedTime = now;
                 spawn2++;
-                nextSpeed = 200;
+                nextSpeed = 10000;
                 
                 clonePowerup("speed");
             }

@@ -52,6 +52,8 @@ function loadObj() {
                         arwing.box = new THREE.Box3().setFromObject(arwing);
                         arwingSize = arwing.box.getSize();
 
+                        arwing.shield = particleGroup;
+
                 		group.add(object);
                     }
                     // load Laser
@@ -75,6 +77,7 @@ function loadObj() {
 
                 		spaceship.rotation.x = 0;
                 		spaceship.rotation.y = Math.PI * 90;
+
                     }
                     
                     // load Rock
@@ -100,6 +103,11 @@ function loadObj() {
 
                         speedPowerup.rotation.x = Math.PI / 360 * 90;
                         speedPowerup.rotation.y = Math.PI;
+
+                        var glow = glowPowerup.clone();
+                        glow.scale.set(12, 12, 1.0);
+                        glow.position.set(0, -2, 0);
+                        speedPowerup.add(glow);
                     }
 
                     //Powerup - life
@@ -110,6 +118,11 @@ function loadObj() {
                         lifeBoostPowerup.position.x = 0;
                         lifeBoostPowerup.position.y = -3;
                         lifeBoostPowerup.position.z = 0;
+
+                        var glow = glowPowerup.clone();
+                        glow.scale.set(110, 110, 1.0);
+                        glow.position.set(0, 30, 0);
+                        lifeBoostPowerup.add(glow);
                     }
 
                     //Powerup - immunity
@@ -120,6 +133,11 @@ function loadObj() {
                         immunityPowerup.position.x = 0;
                         immunityPowerup.position.y = 2;
                         immunityPowerup.position.z = 0;
+
+                        var glow = glowPowerup.clone();
+                        glow.scale.set(1.2, 1.2, 1.0);
+                        glow.position.set(0, 0, 0);
+                        immunityPowerup.add(glow);
                     }
 
                     //Powerup - speedboost
@@ -130,6 +148,12 @@ function loadObj() {
                         speedUpPowerup.position.x = 0;
                         speedUpPowerup.position.y = 2;
                         speedUpPowerup.position.z = 0;
+
+                        var glow = glowPowerup.clone();
+                        glow.scale.set(1, 1, 1.0);
+                        glow.position.set(0, 0, 0);
+                        speedUpPowerup.add(glow);
+
 
                         document.getElementById("btn-start").classList.remove("disabled");
                     }

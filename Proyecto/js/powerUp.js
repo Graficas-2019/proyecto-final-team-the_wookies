@@ -65,8 +65,9 @@ function immunityStart()
         immunityTimesInitiated += 1;
         scoreLock = scoreLock + 1;
         immunitySecondsLeft = immunityDuration/1000;
+
+        arwing.shield.visible = true;
     }
-    
 }
 
 function immunityStop()
@@ -78,6 +79,8 @@ function immunityStop()
         scoreLock = scoreLock - 1;
         //console.log(scoreLock);
         immunityLastTimePrinted = null;
+
+        arwing.shield.visible = false;
     }
 }
 

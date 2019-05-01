@@ -131,6 +131,11 @@ var speedMovementBoostSpeedLimit = 0.15;
 sounds = {}
 
 
+// Shield Particles
+var particleGroup = null;
+var particleValues = null; 
+var glowPowerup = null;
+
 var percentage_life = 0;
 function createScene(canvas) 
 {
@@ -160,6 +165,10 @@ function createScene(canvas)
     // Create a group to hold all the objects
     root = new THREE.Object3D;
     
+    /////////////////////////////////////////////
+    ////////////////// LIGHTS //////////////////
+    ///////////////////////////////////////////
+
     spotLight = new THREE.SpotLight (0x888888);
     spotLight.position.set(0, 170, 0);
     spotLight.target.position.set(-2, 0, -2);
@@ -177,11 +186,20 @@ function createScene(canvas)
     ambientLight = new THREE.AmbientLight ( 0x888888 );
     root.add(ambientLight);
     
+
+    /////////////////////////////////////////////
+    /////////////// LOAD MODELS ////////////////
+    ///////////////////////////////////////////
+
     // Create the objects
     loadObj();
     // Create a group to hold the objects
     group = new THREE.Object3D;
     root.add(group);
+
+    /////////////////////////////////////////////
+    ////////////////// PLANE ///////////////////
+    ///////////////////////////////////////////
 
     // Create a texture map
     var waterMap = new THREE.TextureLoader().load(mapUrl);
@@ -201,6 +219,10 @@ function createScene(canvas)
     grass.castShadow = false;
     grass.receiveShadow = true;
 
+    /////////////////////////////////////////////
+    ////////////////// SKYBOX //////////////////
+    ///////////////////////////////////////////
+
     // Create the skybox
     var directory = "images/";
 	var cubeSides  = ["RIGHT", "LEFT", "TOP", "BUTTON", "BACK", "FRONT"];
@@ -219,14 +241,73 @@ function createScene(canvas)
     skyBox.position.z = -140;
 	root.add( skyBox );
 
+    /////////////////////////////////////////////
+    ///////////// IMMUNITY EFFECT //////////////
+    ///////////////////////////////////////////
+
+    // Create the shield
+    var particleTexture = new THREE.TextureLoader().load('images/spark.png' );
+
+    particleGroup = new THREE.Object3D();
+    particleValues = { startSize: [], startPosition: [], randomness: [] };
+    
+    var totalParticles = 200;
+    var radius = 10;
+    for( var i = 0; i < totalParticles; i++ ) 
+    {
+        var spriteMaterial = new THREE.SpriteMaterial( { map: particleTexture, color: 0xffffff } );
+        
+        var sprite = new THREE.Sprite( spriteMaterial );
+        sprite.scale.set( 2, 2, 3.0 );
+        sprite.position.set( Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5 );
+
+        // Set length for position of sprite for a spherical shell
+        sprite.position.setLength( radius * (Math.random() * 0.1 + 0.9) );
+        
+        // Set material colors
+        sprite.material.color.setHSL( Math.random(), 0.9, 0.7 ); 
+        
+        // Set glowing particles
+        sprite.material.blending = THREE.AdditiveBlending;
+        
+        particleGroup.add( sprite );
+       
+        // Add variable things to array
+        particleValues.startPosition.push( sprite.position.clone() );
+        particleValues.randomness.push( Math.random() );
+    }
+    root.add( particleGroup );
+    particleGroup.visible = false;
+
+
+    /////////////////////////////////////////////
+    ////////////// GLOW EFFECT /////////////////
+    ///////////////////////////////////////////
+    // Glow Effect
+    var spriteMaterial = new THREE.SpriteMaterial( 
+    { 
+        map: new THREE.ImageUtils.loadTexture( 'images/glow.png' ), 
+        color: 0xfff200,
+        transparent: true, 
+        blending: THREE.AdditiveBlending
+    });
+    
+    glowPowerup = new THREE.Sprite( spriteMaterial );
+
     // Now add the group to our scene
     scene.add( root );
 
+    /////////////////////////////////////////////
+    ///////////// EVENT LISTENERS //////////////
+    ///////////////////////////////////////////
     window.addEventListener( 'resize', onWindowResize);
     document.addEventListener('keydown', onKeyDown, false);
     document.addEventListener('keyup', onKeyUp);
 
 
+    /////////////////////////////////////////////
+    ////////////////// AUDIO ///////////////////
+    ///////////////////////////////////////////
     //load the audio
     loadAudio("mario","./music/mario.mp3");
     loadAudio("dead","./music/sound.mp3");
@@ -259,7 +340,32 @@ function animate()
 
         generateGame(deltat, now);
 
-        KF.update();
-        
+        if(arwing.shield.visible == true){
+            generateShield();
+        }
+
+        KF.update();     
     }
+
+}
+
+
+function generateShield(){
+    var time = 4 * clock.elapsedTime;
+    for ( var c = 0; c < particleGroup.children.length; c ++ ) 
+    {
+        var sprite = particleGroup.children[ c ];
+
+        // individual rates of movement
+        var a = particleValues.randomness[c] + 1;
+        var pulse = Math.sin(a * time) * 0.1 + 0.9;
+        sprite.position.x = particleValues.startPosition[c].x * pulse;
+        sprite.position.y = particleValues.startPosition[c].y * pulse;
+        sprite.position.z = particleValues.startPosition[c].z * pulse;    
+    }
+
+    // Rotation of particles
+    particleGroup.rotation.y = time * 0.75;
+    var position = arwing.position;
+    particleGroup.position.set(position.x, position.y, position.z);
 }

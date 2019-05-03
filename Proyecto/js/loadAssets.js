@@ -52,7 +52,8 @@ function loadObj() {
                         arwing.box = new THREE.Box3().setFromObject(arwing);
                         arwingSize = arwing.box.getSize();
 
-                        arwing.shield = particleGroup;
+                        arwing.shield = particleShieldGroup;
+                        arwing.flame = particleFlameGroup;
 
                 		group.add(object);
                     }

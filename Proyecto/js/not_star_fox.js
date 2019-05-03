@@ -132,9 +132,12 @@ sounds = {}
 
 
 // Shield Particles
-var particleGroup = null;
+var particleShieldGroup = null;
 var particleValues = null; 
 var glowPowerup = null;
+
+// Flame Particles
+var particleFlameGroup = null;
 
 var percentage_life = 0;
 function createScene(canvas) 
@@ -248,7 +251,7 @@ function createScene(canvas)
     // Create the shield
     var particleTexture = new THREE.TextureLoader().load('images/spark.png' );
 
-    particleGroup = new THREE.Object3D();
+    particleShieldGroup = new THREE.Object3D();
     particleValues = { startSize: [], startPosition: [], randomness: [] };
     
     var totalParticles = 200;
@@ -270,14 +273,46 @@ function createScene(canvas)
         // Set glowing particles
         sprite.material.blending = THREE.AdditiveBlending;
         
-        particleGroup.add( sprite );
+        particleShieldGroup.add( sprite );
        
         // Add variable things to array
         particleValues.startPosition.push( sprite.position.clone() );
         particleValues.randomness.push( Math.random() );
     }
-    root.add( particleGroup );
-    particleGroup.visible = false;
+    root.add( particleShieldGroup );
+    particleShieldGroup.visible = false;
+
+    /////////////////////////////////////////////
+    /////////////// FIRE EFFECT ////////////////
+    ///////////////////////////////////////////
+    var particleCount = 80;
+    particleFlameGroup = new THREE.Object3D();
+    // Texture
+    var texture =  new THREE.TextureLoader().load("./images/flame_texture.png");
+    // Material
+    var material = new THREE.SpriteMaterial({
+        color: 0xff4502,
+        map: texture,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending
+    });
+    
+    
+    // Creation of particle
+    for (var i = 0; i < particleCount; i++) {
+        var particle = new THREE.Sprite(material.clone());
+        particle.scale.multiplyScalar(Math.random() * 4);
+        // Velocity
+        particle.velocity = new THREE.Vector3( 0, Math.random(), 0 );
+        
+        particleFlameGroup.add( particle );
+    }
+
+    particleFlameGroup.rotation.x = Math.PI / 180 * 90;
+    root.add( particleFlameGroup );
+    particleFlameGroup.visible = false;
+
 
 
     /////////////////////////////////////////////
@@ -344,6 +379,10 @@ function animate()
             generateShield();
         }
 
+         if(arwing.flame.visible == true){
+            generateFlame();
+        }
+
         KF.update();     
     }
 
@@ -352,9 +391,9 @@ function animate()
 
 function generateShield(){
     var time = 4 * clock.elapsedTime;
-    for ( var c = 0; c < particleGroup.children.length; c ++ ) 
+    for ( var c = 0; c < particleShieldGroup.children.length; c ++ ) 
     {
-        var sprite = particleGroup.children[ c ];
+        var sprite = particleShieldGroup.children[ c ];
 
         // individual rates of movement
         var a = particleValues.randomness[c] + 1;
@@ -365,7 +404,24 @@ function generateShield(){
     }
 
     // Rotation of particles
-    particleGroup.rotation.y = time * 0.75;
+    particleShieldGroup.rotation.y = time * 0.75;
     var position = arwing.position;
-    particleGroup.position.set(position.x, position.y, position.z);
+    particleShieldGroup.position.set(position.x, position.y, position.z);
+}
+
+function generateFlame() {
+    for (var i = 0; i < particleFlameGroup.children.length; i++) {
+        var particle = particleFlameGroup.children[i];
+        if(particle.position.y > 10) {
+            particle.position.y = 0;
+            particle.velocity.y = Math.random() + 1;
+            particle.material.opacity = 1;
+        }
+        particle.material.opacity -= 0.1;
+        particle.velocity.y += 0.0001;
+        particle.position.add(particle.velocity);
+    }
+
+    var position = arwing.position;
+    particleFlameGroup.position.set(position.x, position.y, position.z);
 }

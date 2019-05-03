@@ -28,6 +28,8 @@ function speedBoostStart()
         immunityTimesInitiated += 1;
 
         speedUpSecondsLeft = speedUpDuration/1000;
+
+        arwing.flame.visible = true;
     }
 }
 
@@ -53,6 +55,8 @@ function speedBoostStop()
         immunityTimesInitiated -= 1;
 
         speedUpLastTimePrinted = null;
+
+        arwing.flame.visible = false;
     }
 }
 

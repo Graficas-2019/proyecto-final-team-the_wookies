@@ -344,8 +344,15 @@ function createScene(canvas)
     ////////////////// AUDIO ///////////////////
     ///////////////////////////////////////////
     //load the audio
-    loadAudio("mario","./music/mario.mp3");
-    loadAudio("dead","./music/sound.mp3");
+    loadAudio("mario","./music/background1.mp3", 0.3);
+    loadAudio("dead","./music/sound.mp3", 1);
+
+    loadAudio("shot","./music/shot.wav", 1);
+
+    loadAudio("life","./music/powerups/life.wav", 1);
+    loadAudio("shield","./music/powerups/shield.wav", 1);
+    loadAudio("speed","./music/powerups/speed.wav", 0.3);
+    loadAudio("speedBoost","./music/powerups/speedBoost.wav", 1);
     
 }
 

@@ -277,21 +277,25 @@ function generateGame(deltat, now){
                         if (powerups[i].alive == 1){
                             if(powerups[i].type == "speedBoost"){
                                 speedBoostStart();
+                                playAudio("speedBoost", false);
                                 spawn2--;
                             }
 
                             else if(powerups[i].type == "immunity"){
                                 immunityStart();
+                                playAudio("shield", false);
                                 spawn2--;
                             }
 
                             else if(powerups[i].type == "life"){
                                 lifeBoostStart();
+                                playAudio("life", false);
                                 spawn2--;
                             }
 
                             else if(powerups[i].type == "speed"){
                                 speedMovementBoostStart();
+                                playAudio("speed", false);
                                 spawn2--;
                                 //console.log("entre");
                             }

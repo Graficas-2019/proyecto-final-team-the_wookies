@@ -76,6 +76,20 @@ var dirs = [];
 var parts = [];
 var scene = container = material = particles = null;
 
+//go up delay
+var timeTransition = 100;
+var transitionRefres = 5;
+
+var heightLimit = 30
+var heightMin = 15;
+var heightSum = (transitionRefres*(heightLimit - heightMin))/timeTransition;
+var arwingRotation = 0.3;
+
+var lastUpdate = 0;
+var lastUpdateTime = 0;
+
+var transitionUp = false;
+var transitionDown = false;
 
 
 //velocidad objetos

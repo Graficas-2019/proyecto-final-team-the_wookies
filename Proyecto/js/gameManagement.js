@@ -37,14 +37,23 @@ function startGame()
         }   
     }
 
+    if(parts.length > 0){
+        for(var i = 0; i < parts.length; i++){
+            scene.remove(sparts[i]);
+        }   
+    }
+
     gameDifficulty = 1;
     enemies = [];
     obstacles = [];
     powerups = [];
     shots = [];
     parts = [];
+
     explotionTimeRefreshRate = Date.now();
     lastLevelChanged = Date.now();
+
+    lastUpdate = Date.now();
 
     document.getElementById("btn-start").hidden = true;
     document.getElementById("score").innerHTML = "Score: " + score;
@@ -80,6 +89,43 @@ function generateGame(deltat, now){
 
 
     var pCount = parts.length;
+
+    if(transitionUp)
+    {
+        if(now - lastUpdate > transitionRefres )
+        {
+            if (arwing.position.y<heightLimit)
+            {
+                arwing.position.y += heightSum; 
+                lastUpdate = Date.now();
+            }
+            else
+            {
+                arwing.rotation.x -= arwingRotation;
+                transitionUp = false;
+            }
+            
+        }
+    }
+
+    if(transitionDown)
+    {
+        if(now - lastUpdate > transitionRefres )
+        {
+            if (arwing.position.y>heightMin)
+            {
+                arwing.position.y -= heightSum; 
+                lastUpdate = Date.now();
+            }
+            else
+            {
+                arwing.rotation.x += arwingRotation;
+                transitionDown = false;
+            }
+            
+        }
+    }
+
 
     if (now-explotionTimeRefreshRate > explotionRefreshRate)
     {
@@ -338,7 +384,8 @@ function generateGame(deltat, now){
                 }
 
                 arwing.box.setFromObject(arwing);
-                if(arwing.box.intersectsBox(enemies[i].box.setFromObject(enemies[i]))){
+                if(arwing.box.intersectsBox(enemies[i].box.setFromObject(enemies[i])))
+                {
                     if (enemies[i].alive == 1){
                         if(enemies[i].score == 1){
                         	

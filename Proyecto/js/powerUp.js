@@ -9,7 +9,9 @@ function speedBoostStart()
 {
     if(!speedUpStatus)
     {
-        arwing.position.y = 30;
+        //arwing.position.y = 30;
+        arwing.rotation.x += arwingRotation;
+        transitionUp = true;
         speedUpStartTime = Date.now();
         speedUpStatus = true;
 
@@ -37,7 +39,9 @@ function speedBoostStop()
 {
     if(speedUpStatus)
     {
-        arwing.position.y = 15;
+        arwing.rotation.x -= arwingRotation;
+        transitionDown = true;
+        //arwing.position.y = 15;
         speedUpStatus = false;
 
         //return to normal state enemies

@@ -2,10 +2,12 @@ function onKeyDown(event){
     if(event.keyCode == 68) 
     {
         controlXR(arwingMovementSpeed);
+        playArwingAnimations(-1);
     }
     if(event.keyCode == 65) 
     {
         controlXL(-arwingMovementSpeed);
+        playArwingAnimations(1);
     }
     if(event.keyCode == 87) 
     {

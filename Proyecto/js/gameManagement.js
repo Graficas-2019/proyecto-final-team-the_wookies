@@ -39,7 +39,7 @@ function startGame()
 
     if(parts.length > 0){
         for(var i = 0; i < parts.length; i++){
-            scene.remove(sparts[i]);
+            scene.remove(parts[i]);
         }   
     }
 
@@ -536,6 +536,39 @@ function playAnimations()
         grassAnimator.start();
     }
 }
+
+function playArwingAnimations(side)
+{    
+    if (arwingAnimator)
+        arwingAnimator.stop();
+
+    if (animateArwing) 
+    {
+        arwingAnimator = new KF.KeyFrameAnimator;
+        arwingAnimator.init({ 
+            interps:
+                [
+                    { 
+                        keys:[0, 0.2, 0.4, 0.6, 0.8, 1], 
+                        values:[
+                                { x : 0, y : arwing.rotation.y, z : side },
+                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 90 },
+                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 80},
+                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 70},
+                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 60},
+                                { x : 0, y : arwing.rotation.y, z : 0 },
+                                ],
+                        target:arwing.rotation
+                    },
+                ],
+            loop: false,
+            duration: 2000,
+            easing:TWEEN.Easing.Sinusoidal.In,
+        });
+        arwingAnimator.start();
+    }
+}
+
 
 function updateTimer(seconds) 
 {

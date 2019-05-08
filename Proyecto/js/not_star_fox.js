@@ -39,6 +39,9 @@ var lastLevelChanged = 0;
 var grass = grassAnimator = null;
 var animateGrass = true;
 
+var arwingAnimator = null;
+var animateArwing = true;
+
 var objLoader = mtlLoader = null;
 var currTreeTime = currSpaceShipTime = currRockTime = 0;
 

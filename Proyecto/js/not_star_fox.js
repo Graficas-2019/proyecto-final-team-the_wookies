@@ -151,10 +151,12 @@ sounds = {}
 // Shield Particles
 var particleShieldGroup = null;
 var particleValues = null; 
+// Glow
 var glowPowerup = null;
-
 // Flame Particles
 var particleFlameGroup = null;
+// Skybox
+var skyBox = null;
 
 var percentage_life = 0;
 function createScene(canvas) 
@@ -205,7 +207,6 @@ function createScene(canvas)
 
     ambientLight = new THREE.AmbientLight ( 0x888888 );
     root.add(ambientLight);
-    
 
     /////////////////////////////////////////////
     /////////////// LOAD MODELS ////////////////
@@ -218,19 +219,34 @@ function createScene(canvas)
     root.add(group);
 
     /////////////////////////////////////////////
+    /////////////// FOG EMISOR /////////////////
+    ///////////////////////////////////////////
+    scene.fog=new THREE.Fog( 0x000000, 0.008, 100 );
+    scene.fog=new THREE.FogExp2( 0x000000, 0.008 );
+    
+    var geometry = new THREE.SphereGeometry( 100, 100, 32 );
+    var fogEmitter = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:0x888888, transparent: true, opacity: 0.9}));
+
+    group.add( fogEmitter );
+    fogEmitter.castShadow = false;
+    fogEmitter.receiveShadow = true;
+    fogEmitter.position.set(0,0,-450);
+
+
+    /////////////////////////////////////////////
     ////////////////// PLANE ///////////////////
     ///////////////////////////////////////////
 
     // Create a texture map
-    var waterMap = new THREE.TextureLoader().load(mapUrl);
-    waterMap.wrapS = waterMap.wrapT = THREE.RepeatWrapping;
-    waterMap.repeat.set(8, 8);
+    var grassMap = new THREE.TextureLoader().load(mapUrl);
+    grassMap.wrapS = grassMap.wrapT = THREE.RepeatWrapping;
+    grassMap.repeat.set(8, 8);
 
     var color = 0xffffff;
 
     // Put in a ground plane to show off the lighting
-    geometry = new THREE.PlaneGeometry(500, 500, 50, 50);
-    grass = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, map:waterMap, side:THREE.DoubleSide}));
+    geometry = new THREE.PlaneGeometry(100, 500, 50, 50);
+    grass = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:color, map:grassMap, side:THREE.DoubleSide}));
     grass.rotation.x = -Math.PI / 2;
     grass.position.y = -4.02;
 
@@ -238,6 +254,8 @@ function createScene(canvas)
     group.add( grass );
     grass.castShadow = false;
     grass.receiveShadow = true;
+
+
 
     /////////////////////////////////////////////
     ////////////////// SKYBOX //////////////////
@@ -251,12 +269,12 @@ function createScene(canvas)
 	var arr = [];
     for (var i = 0; i < 6; i++)
     {
-		arr.push( new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load( directory + cubeSides[i] + imageSuffix ), side: THREE.BackSide }));
+		arr.push( new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load( directory + cubeSides[i] + imageSuffix ), side: THREE.BackSide, fog: false }));
 	}
 
 	// Add the skybox to our group
 	var skyGeom = new THREE.CubeGeometry( 500, 400, 600 );
-	var skyBox = new THREE.Mesh( skyGeom, arr );
+	skyBox = new THREE.Mesh( skyGeom, arr );
 	skyBox.position.y = 120;
     skyBox.position.z = -140;
 	root.add( skyBox );
@@ -341,7 +359,8 @@ function createScene(canvas)
         map: new THREE.TextureLoader().load( 'images/glow.png' ), 
         color: 0xfff200,
         transparent: true, 
-        blending: THREE.AdditiveBlending
+        blending: THREE.AdditiveBlending,
+        fog: false
     });
     
     glowPowerup = new THREE.Sprite( spriteMaterial );
@@ -398,7 +417,7 @@ function animate()
         currentTime = now;
 
         generateGame(deltat, now);
-
+        skyBox.rotation.y = clock.elapsedTime * 0.040;
         if(arwing.shield.visible == true){
             generateShield();
         }

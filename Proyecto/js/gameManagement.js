@@ -355,7 +355,6 @@ function generateGame(deltat, now){
             }
         }
 
-
         if ( enemies.length > 0 ) {
         	
             for(var i = 0; i < enemies.length; i++){
@@ -444,7 +443,7 @@ function generateGame(deltat, now){
 
                                 if(obstacles[i].type == "tree"){
                                     updateLife(-70);
-                                    
+                                    explode();
                                     //console.log("Árbol -70");
                                     spawn--;
                                 }
@@ -657,3 +656,16 @@ function getRandomArbitrary(min, max)
     return Math.random() * (max - min) + min;
 }
 
+function explode()
+{
+    //console.log("explode");
+    for (var i = 0; i < particleCountTree; i ++ ) {
+        var vertex = new THREE.Vector3();
+        vertex.x = -0.2+Math.random() * 0.4;
+        vertex.y = -0.2+Math.random() * 0.4 ;
+        vertex.z = -0.2+Math.random() * 0.4;
+        particleTreeGeometry.vertices[i]=vertex;
+    }
+    explosionPower = 1.25;
+    treeParticles.visible = true;
+}

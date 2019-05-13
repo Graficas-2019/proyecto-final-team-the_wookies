@@ -158,6 +158,17 @@ var particleFlameGroup = null;
 // Skybox
 var skyBox = null;
 
+////
+var particleTreeGeometry = null;
+var treeParticles = null;
+
+
+
+//////////////
+var particleCountFlame = 0;
+var particleCountShield = 0;
+var particleCountTree = 0;
+var explosionPower = 1.06;
 var percentage_life = 0;
 function createScene(canvas) 
 {
@@ -219,21 +230,6 @@ function createScene(canvas)
     root.add(group);
 
     /////////////////////////////////////////////
-    /////////////// FOG EMISOR /////////////////
-    ///////////////////////////////////////////
-    scene.fog=new THREE.Fog( 0x000000, 0.008, 100 );
-    scene.fog=new THREE.FogExp2( 0x000000, 0.008 );
-    
-    var geometry = new THREE.SphereGeometry( 100, 100, 32 );
-    var fogEmitter = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({color:0x888888, transparent: true, opacity: 0.9}));
-
-    group.add( fogEmitter );
-    fogEmitter.castShadow = false;
-    fogEmitter.receiveShadow = true;
-    fogEmitter.position.set(0,0,-450);
-
-
-    /////////////////////////////////////////////
     ////////////////// PLANE ///////////////////
     ///////////////////////////////////////////
 
@@ -255,6 +251,23 @@ function createScene(canvas)
     grass.castShadow = false;
     grass.receiveShadow = true;
 
+
+    /////////////////////////////////////////////
+    /////////////// FOG EMISOR /////////////////
+    ///////////////////////////////////////////
+    scene.fog=new THREE.Fog( 0x000000, 0.008, 100 );
+    scene.fog=new THREE.FogExp2( 0x000000, 0.008 );
+    
+    var geometry = new THREE.SphereGeometry( 100, 100, 32 );
+    var fogEmitter = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({map:grassMap, side:THREE.DoubleSide, transparent: true, opacity: 0.95}));
+
+    group.add( fogEmitter );
+    fogEmitter.castShadow = false;
+    fogEmitter.receiveShadow = true;
+    fogEmitter.position.set(0,0,-450);
+
+
+    
 
 
     /////////////////////////////////////////////
@@ -289,9 +302,9 @@ function createScene(canvas)
     particleShieldGroup = new THREE.Object3D();
     particleValues = { startSize: [], startPosition: [], randomness: [] };
     
-    var totalParticles = 200;
+    particleCountShield = 200;
     var radius = 10;
-    for( var i = 0; i < totalParticles; i++ ) 
+    for( var i = 0; i < particleCountShield; i++ ) 
     {
         var spriteMaterial = new THREE.SpriteMaterial( { map: particleTexture, color: 0xffffff } );
         
@@ -320,7 +333,7 @@ function createScene(canvas)
     /////////////////////////////////////////////
     /////////////// FIRE EFFECT ////////////////
     ///////////////////////////////////////////
-    var particleCount = 80;
+    particleCountFlame = 80;
     particleFlameGroup = new THREE.Object3D();
     // Texture
     var texture =  new THREE.TextureLoader().load("./images/flame_texture.png");
@@ -333,9 +346,8 @@ function createScene(canvas)
         blending: THREE.AdditiveBlending
     });
     
-    
     // Creation of particle
-    for (var i = 0; i < particleCount; i++) {
+    for (var i = 0; i < particleCountFlame; i++) {
         var particle = new THREE.Sprite(material.clone());
         particle.scale.multiplyScalar(Math.random() * 4);
         // Velocity
@@ -368,20 +380,24 @@ function createScene(canvas)
     /////////////////////////////////////////////
     ///////////// TREE EXPLOSION ///////////////
     ///////////////////////////////////////////
-    /*
+    
+    particleCountTree = 50;
+    var leaftTexture = new THREE.TextureLoader().load('images/leaf.png');
     particleTreeGeometry = new THREE.Geometry();
-    for (var i = 0; i < particleCount; i ++ ) {
+    for (var i = 0; i < particleCountTree; i ++ ) {
         var vertex = new THREE.Vector3();
         particleTreeGeometry.vertices.push( vertex );
     }
     var pMaterial = new THREE.ParticleBasicMaterial({
-      color: 0xfffafa,
-      size: 0.2
+        map: leaftTexture, 
+        transparent: true,
+        opacity: 0.8,
+        size: 1.5
     });
     treeParticles = new THREE.Points( particleTreeGeometry, pMaterial );
-    scene.add( treeParticles );
+    root.add( treeParticles );
     treeParticles.visible=false;
-    */
+
 
     
     // Now add the group to our scene
@@ -444,6 +460,9 @@ function animate()
          if(arwing.flame.visible == true){
             generateFlame();
         }
+        if (treeParticles.visible == true){
+            doExplosionLogic();
+        }
 
         KF.update();     
     }
@@ -486,4 +505,21 @@ function generateFlame() {
 
     var position = arwing.position;
     particleFlameGroup.position.set(position.x, position.y, position.z);
+}
+
+function doExplosionLogic()
+{
+    //console.log("explo logic");
+    //if(!treeParticles.visible)return;
+    for (var i = 0; i < particleCountTree; i ++ ) {
+        particleTreeGeometry.vertices[i].multiplyScalar(explosionPower);
+    }
+    if(explosionPower>1.005){
+        explosionPower-=0.0009;
+    }else{
+        treeParticles.visible=false;
+    }
+    var position = arwing.position;
+    treeParticles.position.set(position.x, position.y, position.z);
+    particleTreeGeometry.verticesNeedUpdate = true;
 }

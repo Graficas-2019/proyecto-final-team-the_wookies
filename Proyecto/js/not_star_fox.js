@@ -365,6 +365,25 @@ function createScene(canvas)
     
     glowPowerup = new THREE.Sprite( spriteMaterial );
 
+    /////////////////////////////////////////////
+    ///////////// TREE EXPLOSION ///////////////
+    ///////////////////////////////////////////
+    /*
+    particleTreeGeometry = new THREE.Geometry();
+    for (var i = 0; i < particleCount; i ++ ) {
+        var vertex = new THREE.Vector3();
+        particleTreeGeometry.vertices.push( vertex );
+    }
+    var pMaterial = new THREE.ParticleBasicMaterial({
+      color: 0xfffafa,
+      size: 0.2
+    });
+    treeParticles = new THREE.Points( particleTreeGeometry, pMaterial );
+    scene.add( treeParticles );
+    treeParticles.visible=false;
+    */
+
+    
     // Now add the group to our scene
     scene.add( root );
 

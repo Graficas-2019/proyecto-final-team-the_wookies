@@ -3,13 +3,13 @@ function onKeyDown(event){
     if(event.keyCode == 68) 
     {
         controlXR(arwingMovementSpeed);
-        playArwingAnimations(-0.65);
+        playArwingAnimations(0.65);
     }
     // Left A
     if(event.keyCode == 65) 
     {
         controlXL(-arwingMovementSpeed);
-        playArwingAnimations(0.65);
+        playArwingAnimations(-0.65);
     }
     // Up W
     if(event.keyCode == 87) 

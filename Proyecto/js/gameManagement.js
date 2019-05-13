@@ -369,8 +369,9 @@ function generateGame(deltat, now){
             		enemies[i].rotation.x += 0.010 * deltat;
             	}
             	
-                if (enemies[i].alive == 1){
-                    if(enemies[i].position.z > 100 ) {  
+                
+                if(enemies[i].position.z > 100 ) {
+                    if (enemies[i].alive == 1){
 
                         if(enemies[i].score == 1){
                         	//console.log("-25 Dejó pasar");
@@ -383,29 +384,33 @@ function generateGame(deltat, now){
                     } 
                 }
 
-                arwing.box.setFromObject(arwing);
-                if(arwing.box.intersectsBox(enemies[i].box.setFromObject(enemies[i])))
-                {
-                    if (enemies[i].alive == 1){
-                        if(enemies[i].score == 1){
-                        	
-                            if(enemies[i].type == "rock"){
-                                updateLife(-20);
-                                //console.log("Roca -20");
-                                spawn--;
-                            }
+                else{
+                    arwing.box.setFromObject(arwing);
+                    if(arwing.box.intersectsBox(enemies[i].box.setFromObject(enemies[i])))
+                    {
+                        if (enemies[i].alive == 1){
+                            if(enemies[i].score == 1){
+                            	
+                                if(enemies[i].type == "rock"){
+                                    updateLife(-20);
+                                    //console.log("Roca -20");
+                                    spawn--;
+                                }
 
-                            if(enemies[i].type == "spaceship"){
-                                updateLife(-50);
-                                var position = new THREE.Vector3();
-                                position.getPositionFromMatrix( enemies[i].matrixWorld );
-                                //console.log(position);
-                                parts.push(new ExplodeAnimation(position.x,position.y,position.z));
-
-                                //console.log("Nave -50");
-                                spawn--;
+                                if(enemies[i].type == "spaceship"){
+                                    updateLife(-50);
+                                    var position = new THREE.Vector3();
+                                    position.getPositionFromMatrix( enemies[i].matrixWorld );
+                                    //console.log(position);
+                                    parts.push(new ExplodeAnimation(position.x,position.y,position.z));
+      
+                                    //console.log("Nave -50");
+                                    spawn--;
+                                }
+                                enemies[i].alive = 0;
+                                scene.remove(enemies[i]);
+                                enemies.splice(i, 1);
                             }
-                            enemies[i].alive = 0;
                         }
                     }
                 }
@@ -419,9 +424,9 @@ function generateGame(deltat, now){
             		obstacles[i].position.z += treeMovementSpeed * deltat;
             	}
 
-            	if (obstacles[i].alive == 1){
-                    if(obstacles[i].position.z > 100 ) {  
-
+            	
+                if(obstacles[i].position.z > 100 ) { 
+                    if (obstacles[i].alive == 1){
                         if(obstacles[i].score == 1){
                             obstacles[i].score = 0;
                             updateScore(-25);
@@ -431,19 +436,22 @@ function generateGame(deltat, now){
                         }
                     } 
                 }
+                else{
+                    arwing.box.setFromObject(arwing);
+                    if(arwing.box.intersectsBox(obstacles[i].box.setFromObject(obstacles[i]))){
+                        if (obstacles[i].alive == 1){
+                            if(obstacles[i].score == 1){
 
-                arwing.box.setFromObject(arwing);
-                if(arwing.box.intersectsBox(obstacles[i].box.setFromObject(obstacles[i]))){
-                    if (obstacles[i].alive == 1){
-                        if(obstacles[i].score == 1){
-
-                            if(obstacles[i].type == "tree"){
-                                updateLife(-70);
-                                
-                                //console.log("Árbol -70");
-                                spawn--;
+                                if(obstacles[i].type == "tree"){
+                                    updateLife(-70);
+                                    
+                                    //console.log("Árbol -70");
+                                    spawn--;
+                                }
+                                obstacles[i].alive = 0;
+                                scene.remove(obstacles[i]);
+                                obstacles.splice(i, 1);
                             }
-                            obstacles[i].alive = 0;
                         }
                     }
                 }
@@ -484,14 +492,14 @@ function generateGame(deltat, now){
 	                                if(enemies[k].type == "rock"){
 	                                    updateScore(500);
 	                                    scene.remove(enemies[k]);
-	                                    console.log("Roca +500");
+	                                    //console.log("Roca +500");
 	                                    spawn--;
 	                                }
 
 	                                if(enemies[k].type == "spaceship"){
 	                                    updateScore(1000);
 	                                    scene.remove(enemies[k]);
-                                        console.log("Nave +1000");
+                                        //console.log("Nave +1000");
                                         var position = new THREE.Vector3();
                                         position.getPositionFromMatrix( enemies[k].matrixWorld );
                                 
@@ -595,7 +603,6 @@ function playArwingAnimations(side)
         }
     }
 }
-
 
 function updateTimer(seconds) 
 {

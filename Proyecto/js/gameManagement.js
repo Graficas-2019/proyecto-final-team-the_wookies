@@ -545,27 +545,54 @@ function playArwingAnimations(side)
     if (animateArwing) 
     {
         arwingAnimator = new KF.KeyFrameAnimator;
-        arwingAnimator.init({ 
-            interps:
-                [
-                    { 
-                        keys:[0, 0.2, 0.4, 0.6, 0.8, 1], 
-                        values:[
-                                { x : 0, y : arwing.rotation.y, z : side },
-                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 90 },
-                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 80},
-                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 70},
-                                { x : 0, y : arwing.rotation.y, z : Math.PI * side / 60},
-                                { x : 0, y : arwing.rotation.y, z : 0 },
-                                ],
-                        target:arwing.rotation
-                    },
-                ],
-            loop: false,
-            duration: 2000,
-            easing:TWEEN.Easing.Sinusoidal.In,
-        });
-        arwingAnimator.start();
+
+        if (side == 0.65 || side == -0.65){
+            arwingAnimator.init({ 
+                interps:
+                    [
+                        { 
+                            keys:[0, 0.2, 0.4, 0.6, 0.8, 1], 
+                            values:[
+                                    { x : 0, y : arwing.rotation.y, z : side },
+                                    { x : 0, y : arwing.rotation.y, z : Math.PI * side / 90 },
+                                    { x : 0, y : arwing.rotation.y, z : Math.PI * side / 80},
+                                    { x : 0, y : arwing.rotation.y, z : Math.PI * side / 70},
+                                    { x : 0, y : arwing.rotation.y, z : Math.PI * side / 60},
+                                    { x : 0, y : arwing.rotation.y, z : 0 },
+                                    ],
+                            target:arwing.rotation
+                        },
+                    ],
+                loop: false,
+                duration: 2000,
+                easing:TWEEN.Easing.Sinusoidal.In,
+            });
+            arwingAnimator.start();
+        }
+
+        else if(side == 0.5 || side == -0.5){
+             arwingAnimator.init({ 
+                interps:
+                    [
+                        { 
+                            keys:[0, 0.2, 0.4, 0.6, 0.8, 1], 
+                            values:[
+                                    { x : side, y : arwing.rotation.y, z : 0 },
+                                    { x : 0.4 * side, y : arwing.rotation.y, z : 0 },
+                                    { x : 0.3 * side, y : arwing.rotation.y, z : 0 },
+                                    { x : 0.2 * side, y : arwing.rotation.y, z : 0 },
+                                    { x : 0.1 * side, y : arwing.rotation.y, z : 0 },
+                                    { x : 0, y : arwing.rotation.y, z : 0 },
+                                    ],
+                            target:arwing.rotation
+                        },
+                    ],
+                loop: false,
+                duration: 2000,
+                easing:TWEEN.Easing.Sinusoidal.In,
+            });
+            arwingAnimator.start();
+        }
     }
 }
 

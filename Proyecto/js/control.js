@@ -1,21 +1,28 @@
 function onKeyDown(event){
+    // Right D
     if(event.keyCode == 68) 
     {
         controlXR(arwingMovementSpeed);
         playArwingAnimations(-0.65);
     }
+    // Left A
     if(event.keyCode == 65) 
     {
         controlXL(-arwingMovementSpeed);
         playArwingAnimations(0.65);
     }
+    // Up W
     if(event.keyCode == 87) 
     {
         controlYR(arwingMovementSpeed);
+        playArwingAnimations(0.5);
     }
+
+    // Down S
     if(event.keyCode == 83) 
     {
         controlYL(-arwingMovementSpeed);
+        playArwingAnimations(-0.5);
     }
 }
 
@@ -30,29 +37,35 @@ function onKeyUp(event)
         }
     }
 
+    // Right D
     if(event.keyCode == 68) 
     {
         xRRelease();
     }
+    // Left A
     if(event.keyCode == 65) 
     {
         xLRelease();
     }
+    // Up W
     if(event.keyCode == 87) 
     {
         yRRelease();
     }
+    // Down S
     if(event.keyCode == 83) 
     {
         yLRelease();
     }
 
+    /*
     if(event.keyCode == 16) 
     {
         speedBoostStart();
         //speedBoostStart();
         //lifeBoostStart();
     }
+    */
 }
 
 

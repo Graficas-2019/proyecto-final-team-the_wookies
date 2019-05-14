@@ -55,6 +55,8 @@ function startGame()
 
     lastUpdate = Date.now();
 
+    particleTreeGroup.visible = false;
+
     document.getElementById("btn-start").hidden = true;
     document.getElementById("score").innerHTML = "Score: " + score;
     document.getElementById("timer").innerHTML = duration;
@@ -661,11 +663,11 @@ function explode()
     //console.log("explode");
     for (var i = 0; i < particleCountTree; i ++ ) {
         var vertex = new THREE.Vector3();
-        vertex.x = -0.2+Math.random() * 0.4;
-        vertex.y = -0.2+Math.random() * 0.4 ;
-        vertex.z = -0.2+Math.random() * 0.4;
-        particleTreeGeometry.vertices[i]=vertex;
+        vertex.x = -0.1 + Math.random() * 0.3;
+        vertex.y = -0.1 + Math.random() * 0.3 ;
+        vertex.z = -0.1 + Math.random() * 0.3;
+        particleTreeGeometry.vertices[i] = vertex;
     }
     explosionPower = 1.25;
-    treeParticles.visible = true;
+    particleTreeGroup.visible = true;
 }

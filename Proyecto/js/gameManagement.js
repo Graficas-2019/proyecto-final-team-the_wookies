@@ -1,7 +1,7 @@
 function startGame() 
 {
     //play audioad
-    playAudio("mario",true);
+    playAudio("background", true);
 
     score = 0;
     life = 3000;
@@ -81,6 +81,7 @@ function endGame(message){
 
     updateHighScore();
     UpdateScores();
+    stopAudio("background");
     //document.getElementById("timer").innerHTML = message;
     document.getElementById("game-status").innerHTML = message;
     document.getElementById("btn-start").hidden = false;
@@ -403,7 +404,7 @@ function generateGame(deltat, now){
                                 if(enemies[i].type == "spaceship"){
                                     updateLife(-50);
                                     var position = new THREE.Vector3();
-                                    position.getPositionFromMatrix( enemies[i].matrixWorld );
+                                    position.setFromMatrixPosition( enemies[i].matrixWorld );
                                     //console.log(position);
                                     parts.push(new ExplodeAnimation(position.x,position.y,position.z));
       
@@ -504,7 +505,7 @@ function generateGame(deltat, now){
 	                                    scene.remove(enemies[k]);
                                         //console.log("Nave +1000");
                                         var position = new THREE.Vector3();
-                                        position.getPositionFromMatrix( enemies[k].matrixWorld );
+                                        position.setFromMatrixPosition( enemies[k].matrixWorld );
                                 
                                         parts.push(new ExplodeAnimation(position.x,position.y,position.z));
 	                                    spawn--;

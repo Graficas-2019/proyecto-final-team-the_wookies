@@ -24,18 +24,24 @@ function onKeyDown(event){
         controlYL(-arwingMovementSpeed);
         playArwingAnimations(-0.5);
     }
-}
 
-function onKeyUp(event)
-{
     if(event.keyCode == 32) 
     {
         if(game)
         {
             var position = arwing.position;
             cloneLaser(position);
+
+            playBeatSounds("./music/shot.wav");
+
         }
     }
+
+
+}
+
+function onKeyUp(event)
+{
 
     // Right D
     if(event.keyCode == 68) 

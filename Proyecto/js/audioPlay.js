@@ -22,3 +22,17 @@ function playAudio(name,loop)
     }
 
 }
+
+function stopAudio(name)
+{
+	sounds[name].pause();
+	sounds[name].currentTime = 0;
+}
+
+
+
+function  playBeatSounds(src){
+	var audio = document.createElement("audio");
+	audio.src = src;
+	audio.play();
+}

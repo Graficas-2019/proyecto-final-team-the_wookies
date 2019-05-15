@@ -79,8 +79,12 @@ function startGame()
 function endGame(message){
     game = false;
 
+    if(message == "¡GAME OVER!"){ playAudio("lose", false); }
+    else{ playAudio("win", false); }
+
     updateHighScore();
     UpdateScores();
+
     stopAudio("background");
     //document.getElementById("timer").innerHTML = message;
     document.getElementById("game-status").innerHTML = message;
@@ -191,14 +195,13 @@ function generateGame(deltat, now){
 
             if (life <= 0){
                 seconds = 0;
-                endGame("¡GAME OVER! :(");      
-                playAudio("dead",false);          
+                endGame("¡GAME OVER!");                
             }
 
         }
         else{
             seconds = 0;
-            endGame("¡YOU WON! :)");
+            endGame("¡YOU WON!");
         }
         
         if (spawn < nEnemies && levelDifficultySpawnRock <=gameDifficulty) 
@@ -397,12 +400,14 @@ function generateGame(deltat, now){
                             	
                                 if(enemies[i].type == "rock"){
                                     updateLife(-20);
+                                    playBeatSounds("./music/enemies/rock.wav");
                                     //console.log("Roca -20");
                                     spawn--;
                                 }
 
                                 if(enemies[i].type == "spaceship"){
                                     updateLife(-50);
+                                    playBeatSounds("./music/enemies/spaceship.wav");
                                     var position = new THREE.Vector3();
                                     position.setFromMatrixPosition( enemies[i].matrixWorld );
                                     //console.log(position);
@@ -448,6 +453,7 @@ function generateGame(deltat, now){
 
                                 if(obstacles[i].type == "tree"){
                                     updateLife(-70);
+                                    playBeatSounds("./music/enemies/tree.wav");
                                     explodeTreeParticles();
                                     //console.log("Árbol -70");
                                     spawn--;

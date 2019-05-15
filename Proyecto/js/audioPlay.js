@@ -31,9 +31,10 @@ function stopAudio(name)
 
 
 
-function playBeatSounds(src){
+function playBeatSounds(src, volume){
 	var audio = document.createElement("audio");
 	audio.src = src;
+	audio.volume = volume;
 	audio.play();
 	audio.currentTime = 0;
 }

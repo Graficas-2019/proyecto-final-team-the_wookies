@@ -32,7 +32,7 @@ function onKeyDown(event){
             var position = arwing.position;
             cloneLaser(position);
 
-            playBeatSounds("./music/shot.wav");
+            playBeatSounds("./music/shot.wav", 0.1);
 
         }
     }

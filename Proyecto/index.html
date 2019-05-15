@@ -123,12 +123,24 @@
       <div id="menu">
         <img src="./images/logo.png" alt="StarFox" class="img-center">
         <form>
-            <input class="btn-block disabled" id="btn-start" type="button" value="Start Game"> 
+            <p id="game-status"></p>
+            <input class="btn-block disabled" id="btn-start" type="button" value="Start Game">
+            <input class="btn-block" id="btn-scores" type="button" value="Instructions" onclick="showInstructions()"> 
             <input class="btn-block" id="btn-scores" type="button" value="High Scores" onclick="showScores()">
             <input class="btn-block" id="btn-credits" type="button" value="Credits" onclick="showCredits()">
         </form>
       </div>
       
+      <!-- Instructions -->
+      <div id="instructions" style="display: none;">
+        <img src="./images/instructions.png" alt="Instructions" class="img-center">
+        <div class="info">
+          <hr>
+          <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
+        </div>
+      </div>
+
+
       <!-- High Scores -->
       <div id="high-scores" style="display: none;">
         <img src="./images/logo.png" alt="StarFox" class="img-center">
@@ -155,7 +167,6 @@
           </div>
           <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
         </div>
-
       </div>
       
       <!-- Credits -->

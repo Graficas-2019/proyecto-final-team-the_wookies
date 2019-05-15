@@ -168,7 +168,7 @@ var particleTreeGroup = null;
 var particleCountFlame = 0;
 var particleCountShield = 0;
 var particleCountTree = 0;
-var explosionPower = 1.06;
+var explosionTreePower = 1.06;
 
 var glowFog = null;
 var percentage_life = 0;
@@ -471,7 +471,7 @@ function animate()
             generateFlame();
         }
         if (particleTreeGroup.visible == true){
-            doExplosionLogic();
+            generateTreeExplosion();
         }
 
         KF.update();     
@@ -517,14 +517,14 @@ function generateFlame() {
     particleFlameGroup.position.set(position.x, position.y, position.z);
 }
 
-function doExplosionLogic()
+function generateTreeExplosion()
 {
     for (var i = 0; i < particleCountTree; i ++ ) {
-        particleTreeGeometry.vertices[i].multiplyScalar(explosionPower);
+        particleTreeGeometry.vertices[i].multiplyScalar(explosionTreePower);
     }
     
-    if(explosionPower > 1.05){
-        explosionPower -= 0.001;
+    if(explosionTreePower > 1.05){
+        explosionTreePower -= 0.001;
     }
     else{
         particleTreeGroup.visible = false;

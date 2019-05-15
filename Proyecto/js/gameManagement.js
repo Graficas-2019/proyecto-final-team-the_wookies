@@ -60,6 +60,7 @@ function startGame()
     document.getElementById("btn-start").hidden = true;
     document.getElementById("score").innerHTML = "Score: " + score;
     document.getElementById("timer").innerHTML = duration;
+    document.getElementById("game-status").innerHTML = "";
     //document.getElementById("life").innerHTML = life;
     document.getElementById("life-score").style.width = percentage_life + '%';
     document.getElementById("life-score").innerHTML = percentage_life + '%';
@@ -80,7 +81,8 @@ function endGame(message){
 
     updateHighScore();
     UpdateScores();
-    document.getElementById("timer").innerHTML = message;
+    //document.getElementById("timer").innerHTML = message;
+    document.getElementById("game-status").innerHTML = message;
     document.getElementById("btn-start").hidden = false;
     document.getElementById("btn-start").value = "Restart Game";
     document.getElementById("game-menu").style.display = 'flex';
@@ -445,7 +447,7 @@ function generateGame(deltat, now){
 
                                 if(obstacles[i].type == "tree"){
                                     updateLife(-70);
-                                    explode();
+                                    explodeTreeParticles();
                                     //console.log("Árbol -70");
                                     spawn--;
                                 }
@@ -658,9 +660,8 @@ function getRandomArbitrary(min, max)
     return Math.random() * (max - min) + min;
 }
 
-function explode()
+function explodeTreeParticles()
 {
-    //console.log("explode");
     for (var i = 0; i < particleCountTree; i ++ ) {
         var vertex = new THREE.Vector3();
         vertex.x = -0.1 + Math.random() * 0.3;
@@ -668,6 +669,6 @@ function explode()
         vertex.z = -0.1 + Math.random() * 0.3;
         particleTreeGeometry.vertices[i] = vertex;
     }
-    explosionPower = 1.25;
+    explosionTreePower = 1.25;
     particleTreeGroup.visible = true;
 }

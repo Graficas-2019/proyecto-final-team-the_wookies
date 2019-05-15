@@ -400,14 +400,14 @@ function generateGame(deltat, now){
                             	
                                 if(enemies[i].type == "rock"){
                                     updateLife(-20);
-                                    playBeatSounds("./music/enemies/rock.wav", 1);
+                                    playSound("./music/enemies/rock.wav", 1);
                                     //console.log("Roca -20");
                                     spawn--;
                                 }
 
                                 if(enemies[i].type == "spaceship"){
                                     updateLife(-50);
-                                    playBeatSounds("./music/enemies/spaceship.wav", 1);
+                                    playSound("./music/enemies/spaceship.wav", 1);
                                     var position = new THREE.Vector3();
                                     position.setFromMatrixPosition( enemies[i].matrixWorld );
                                     //console.log(position);
@@ -453,7 +453,7 @@ function generateGame(deltat, now){
 
                                 if(obstacles[i].type == "tree"){
                                     updateLife(-70);
-                                    playBeatSounds("./music/enemies/tree.wav", 1);
+                                    playSound("./music/enemies/tree.wav", 1);
                                     explodeTreeParticles();
                                     //console.log("Árbol -70");
                                     spawn--;
@@ -501,7 +501,7 @@ function generateGame(deltat, now){
 
 	                                if(enemies[k].type == "rock"){
 	                                    updateScore(500);
-                                        playBeatSounds("./music/shot_enemy.wav", 1);
+                                        playSound("./music/shot_enemy.wav", 1);
 	                                    scene.remove(enemies[k]);
 	                                    //console.log("Roca +500");
 	                                    spawn--;
@@ -509,7 +509,7 @@ function generateGame(deltat, now){
 
 	                                if(enemies[k].type == "spaceship"){
 	                                    updateScore(1000);
-                                        playBeatSounds("./music/shot_enemy.wav", 1);
+                                        playSound("./music/shot_enemy.wav", 1);
 	                                    scene.remove(enemies[k]);
                                         //console.log("Nave +1000");
                                         var position = new THREE.Vector3();

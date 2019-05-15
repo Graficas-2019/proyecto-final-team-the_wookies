@@ -124,10 +124,10 @@
         <img src="./images/logo.png" alt="StarFox" class="img-center">
         <form>
             <p id="game-status"></p>
-            <input class="btn-block disabled" id="btn-start" type="button" value="Start Game">
-            <input class="btn-block" id="btn-scores" type="button" value="Instructions" onclick="showInstructions()"> 
-            <input class="btn-block" id="btn-scores" type="button" value="High Scores" onclick="showScores()">
-            <input class="btn-block" id="btn-credits" type="button" value="Credits" onclick="showCredits()">
+            <input class="btn-block disabled" id="btn-start" type="button" onmouseover="playSound('./music/opc.wav', 1)" value="Start Game">
+            <input class="btn-block" id="btn-scores" type="button" value="Instructions" onmouseover="playSound('./music/opc.wav', 1)" onclick="showInstructions()"> 
+            <input class="btn-block" id="btn-scores" type="button" value="High Scores" onmouseover="playSound('./music/opc.wav', 1)" onclick="showScores()">
+            <input class="btn-block" id="btn-credits" type="button" value="Credits" onmouseover="playSound('./music/opc.wav', 1)" onclick="showCredits()">
         </form>
       </div>
       
@@ -136,7 +136,7 @@
         <img src="./images/instructions.png" alt="Instructions" class="img-center">
         <div class="info">
           <hr>
-          <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
+          <input class="btn-block" id="btn-back" type="button" value="Back" onmouseover="playSound('./music/opc.wav', 1)" onclick="backtoMenu()">
         </div>
       </div>
 
@@ -165,7 +165,7 @@
               <p>0000</p>
             </div>
           </div>
-          <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
+          <input class="btn-block" id="btn-back" type="button" value="Back" onmouseover="playSound('./music/opc.wav', 1)" onclick="backtoMenu()">
         </div>
       </div>
       
@@ -179,7 +179,7 @@
           <p>Daniela Flores Javier&emsp;&emsp;&emsp;&emsp;A01023226</p>
           <p>Juan Pablo Güitrón Leal&emsp;&emsp;A01019936</p>
         </div>
-          <input class="btn-block" id="btn-back" type="button" value="Back" onclick="backtoMenu()">
+          <input class="btn-block" id="btn-back" type="button" value="Back" onmouseover="playSound('./music/opc.wav', 1)" onclick="backtoMenu()">
       </div>
 
     </div>

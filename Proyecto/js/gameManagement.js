@@ -39,7 +39,7 @@ function startGame()
 
     if(parts.length > 0){
         for(var i = 0; i < parts.length; i++){
-            scene.remove(parts[i]);
+            parts[i].delete();
         }   
     }
 

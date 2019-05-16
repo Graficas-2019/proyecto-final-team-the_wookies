@@ -25,17 +25,7 @@ function onKeyDown(event){
         playArwingAnimations(-0.5);
     }
 
-    if(event.keyCode == 32) 
-    {
-        if(game)
-        {
-            var position = arwing.position;
-            cloneLaser(position);
 
-            playSound("./music/shot.wav", 0.1);
-
-        }
-    }
 
 
 }
@@ -62,6 +52,18 @@ function onKeyUp(event)
     if(event.keyCode == 83) 
     {
         yLRelease();
+    }
+
+    if(event.keyCode == 32) 
+    {
+        if(game)
+        {
+            var position = arwing.position;
+            cloneLaser(position);
+
+            playSound("./music/shot.wav", 0.1);
+
+        }
     }
 
     /*
